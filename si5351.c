@@ -5,7 +5,7 @@
  * Copyright (C) 2015 - 2019 Jason Milldrum <milldrum@gmail.com>
  *                           Dana H. Myers <k6jq@comcast.net>
  *
- * Some tuning algorithms derived from clk-si5351.c in the Linux kernel.
+ * Some tuning algorithms derived from clk-si5351.c in the Linux kernel. 
  * Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>
  * Rabeeh Khoury <rabeeh@solid-run.com>
  *

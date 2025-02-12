@@ -4,7 +4,7 @@
 // speed is in WPM
 // reference word PARIS
 // .--. .- .-. .. ...
-// 50 time units
+// 50 time units 
 // ms/bit = 1/((WPM/60)*50)
 
 // ascii offset 32

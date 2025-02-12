@@ -3,7 +3,7 @@
 #define MIN_BAUDRATE 5   // vytazeno z prdele
 #define MAX_BAUDRATE 300 // theoreticaly 1kBaud
 
-#define MIN_CFREQ 10000     // vytazeno z prdele
+#define MIN_CFREQ 10000     // vytazeno z prdele 
 #define MAX_CFREQ 200000000 // vytazeno z prdele
 
 #define MIN_SFREQ 5     // vytazeno z prdele

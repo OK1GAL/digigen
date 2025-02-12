@@ -1,5 +1,5 @@
 #include "header.h"
-
+ 
 uint64_t current_center_freq = DEFAULT_CENTER_FREQUENCY;
 uint64_t current_frequency_shift = DEFAULT_FREQUENCY_SHIFT;
 uint16_t current_baudrate = DEFAULT_BAUDRATE;
