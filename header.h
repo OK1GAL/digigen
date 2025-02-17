@@ -21,8 +21,8 @@
 extern uint8_t genmode;
 
 //RTTY
-#define DEFAULT_CENTER_FREQUENCY 50010000
-#define DEFAULT_FREQUENCY_SHIFT 85 // distance from center freq
+#define DEFAULT_CENTER_FREQUENCY 7100000
+#define DEFAULT_FREQUENCY_SHIFT 125 // distance from center freq
 #define DEFAULT_BAUDRATE 50        // delay between bits
 #define SYNTH_SETTING_FREQ_us 1000       // delay between chars
 #define DEFAULT_BIT_TIME_us 20000
@@ -35,6 +35,24 @@ extern uint16_t current_baudrate;
 extern uint16_t current_bit_time;
 extern uint16_t current_char_delay;
 
+/*
+Memory size per configuration:
+
+mode 1
+
+current_center_freq 8
+current_frequency_shift 8
+current_baudrate 2
+current_bit_time 2
+current_char_delay 2
+
+current_CW_speed 1
+current_CW_bittime_us 8
+
+sum: 32 bytes
+
+*/
+
 //CW
 #define DEFAULT_CW_SPEED 20
 #define DEFAULT_CW_BIT_TIME_us 60000 
@@ -44,11 +62,25 @@ extern uint64_t current_CW_bittime_us;
 
 //************GPIO*************//
 
+#define ERROR_LED_PIN 2
+#define TTY_TX_PIN 8
+#define TTY_RX_PIN 9
 #define MODE0_LED_PIN 10
 #define MODE1_LED_PIN 11
+#define RUNNING_LED_PIN 13
+#define SPACE_LED_PIN 15
+#define MARK_LED_PIN 14
+#define PROG1_LED_PIN 16
+#define PROG2_LED_PIN 17
+#define PROG3_LED_PIN 18
+
+#define PROGRAM_BTN_PIN 20
+#define TEST_BTN_PIN 21
+#define RUN_FROM_EEPROM_BTN_PIN 22
 
 //************CONSOLE**********//
 
+#define STDIO_WAIT_TIME_us 5000000
 void console_init();
 void handle_console_rx();
 
@@ -66,6 +98,17 @@ void CW_TX_letter(uint8_t charin);
 //************RTTY*************//
 void RTTYTXletter(uint8_t letter, uint8_t forcechange);
 void refresh_RTTY_config();
+
+//***********EEPROM************//
+#define I2C_PORT i2c0
+#define EEPROM_ADDR 0x50
+
+
+
+//***********PRESETS***********//
+
+void handle_preset_switching();
+
 
 //***********SI5351************//
 #define SI5351_I2C_PORT i2c0

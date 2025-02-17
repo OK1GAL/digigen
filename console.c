@@ -24,6 +24,11 @@ void console_init()
     while (!stdio_usb_connected())
     {
         busy_wait_ms(1);
+        if (time_us_64()>STDIO_WAIT_TIME_us)
+        {
+            break;
+        }
+        
     }
 
     printf("\n\n\n\nWelcome to digigen!\n");
@@ -234,6 +239,7 @@ void handle_console_command()
         {
             int8_t c = ' ';
             RTTYTXletter(c, 1);
+            gpio_put(RUNNING_LED_PIN,1);
             while (c != 3)
             {
                 c = getchar_timeout_us(0);
@@ -259,6 +265,7 @@ void handle_console_command()
                     busy_wait_ms(1);
                 }
             }
+            gpio_put(RUNNING_LED_PIN,0);
             printf("\n", c);
         }
         else
@@ -292,6 +299,7 @@ void handle_console_command()
         {
             int8_t c = ' ';
             CW_TX_letter(c);
+            gpio_put(RUNNING_LED_PIN,1);
             while (c != 3)
             {
                 c = getchar_timeout_us(0);
@@ -313,6 +321,7 @@ void handle_console_command()
                     busy_wait_ms(1);
                 }
             }
+            gpio_put(RUNNING_LED_PIN,0);
             printf("\n", c);
         }
         else

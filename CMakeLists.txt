@@ -31,6 +31,7 @@ add_executable(digigen  digigen.c
                         RTTY.c
                         CW.c
                         console.c
+                        eeprom.c
                         )
 
 pico_set_program_name(digigen "digigen")

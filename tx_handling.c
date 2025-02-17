@@ -40,12 +40,15 @@ void set_FSK_symbol(uint8_t symbol)
     {
         //set_pll(pll_freq_space, SI5351_PLLA);
         set_ms(0, ms_reg_space, 0, r_div_space, 0);
+        gpio_put(SPACE_LED_PIN,1);
+        gpio_put(MARK_LED_PIN,0);
     }
     else
     {
         //set_pll(pll_freq_mark, SI5351_PLLA);
         set_ms(0, ms_reg_mark, 0, r_div_mark, 0);
-        //busy_wait_us(54);
+        gpio_put(SPACE_LED_PIN,0);
+        gpio_put(MARK_LED_PIN,1);
     }
     //pll_reset(SI5351_PLLA);
 }
