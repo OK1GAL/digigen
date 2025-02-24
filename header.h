@@ -98,6 +98,8 @@ void CW_TX_letter(uint8_t charin);
 //************RTTY*************//
 void RTTYTXletter(uint8_t letter, uint8_t forcechange);
 void refresh_RTTY_config();
+void set_baudrate(uint16_t baudrate);
+void set_RTTY_mode();
 
 //***********EEPROM************//
 #define I2C_PORT i2c0
@@ -108,6 +110,9 @@ void refresh_RTTY_config();
 //***********PRESETS***********//
 
 void handle_preset_switching();
+uint8_t load_preset(uint8_t preset);
+void handle_run_eeprom_btn();
+uint8_t save_current_to_preset(uint8_t preset);
 
 
 //***********SI5351************//

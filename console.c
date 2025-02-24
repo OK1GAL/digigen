@@ -91,6 +91,7 @@ void handle_console_command()
 {
     if (compare_command("help", 4))
     {
+        printf("\033[0;36m");
         printf("###digigen help###\n");
         printf("all commands have to have the same format as below\n");
         printf("help - prints help\n");
@@ -108,10 +109,12 @@ void handle_console_command()
         printf("manrttytx - starts manual rtty transmision to escape use ctrl+c\n");
         printf("txmode x - sets TX mode 0:carier 1:CW 2:RTTY\n");
         printf("mancwtx = starts manual CW transmition, escape using ctrl+c\n");
-        printf("\n");
+        printf("savep x - saves current config to a preset x.");
+        printf("\033[0m\n");
     }
     else if (compare_command("config", 6))
     {
+        printf("\033[0;31m");
         printf("Current config:\n");
         printf("Mode: %d\n", genmode);
         printf("0:Simple carier 1:CW 2:RTTY\n");
@@ -121,8 +124,7 @@ void handle_console_command()
         printf("Baudrate: %u baud\n", current_baudrate);
         printf("CW:\n");
         printf("CW speed: %dWPM\n", current_CW_speed);
-        printf("\n");
-        printf("--");
+        printf("\033[0m\n");
     }
     else if (compare_command("baud ", 5))
     {
@@ -131,12 +133,25 @@ void handle_console_command()
             uint16_t baud_to_set = string_to_uint16(5, 3);
             if (baud_to_set >= MIN_BAUDRATE && baud_to_set <= MAX_BAUDRATE)
             {
-                current_baudrate = baud_to_set;
-                current_bit_time = ((float)1000000 / (float)current_baudrate) - SYNTH_BIT_SET_TIME_us;
-                current_char_delay = (current_bit_time - SYNTH_BIT_SET_TIME_us) * 2;
+                set_baudrate(baud_to_set);
                 printf("Baudrate set to: %u baud\n", current_baudrate);
                 printf("Bit time: %u us\n", current_bit_time + SYNTH_BIT_SET_TIME_us);
-                refresh_RTTY_config();
+                switch (genmode)
+                {
+                case 0:
+                    //TODO
+                    break;
+                case 1:
+                    refresh_CW_config();
+                    break;
+                case 2:
+                    refresh_RTTY_config();
+                    break;
+                
+                default:
+                    break;
+                }
+                save_current_to_preset(0xff);// save to last config
             }
             else
             {
@@ -157,8 +172,22 @@ void handle_console_command()
             {
                 current_center_freq = cfreq_to_set;
                 printf("Center frequency set to: %lluHz\n", current_center_freq);
-                refresh_RTTY_config();
-                refresh_CW_config();
+                switch (genmode)
+                {
+                case 0:
+                    //TODO
+                    break;
+                case 1:
+                    refresh_CW_config();
+                    break;
+                case 2:
+                    refresh_RTTY_config();
+                    break;
+                
+                default:
+                    break;
+                }
+                save_current_to_preset(0xff);// save to last config
             }
             else
             {
@@ -178,8 +207,23 @@ void handle_console_command()
             if (sfreq_to_set >= MIN_SFREQ && sfreq_to_set <= MAX_SFREQ)
             {
                 current_frequency_shift = sfreq_to_set;
-                printf("Center frequency set to: %lluHz\n", current_frequency_shift);
-                refresh_RTTY_config();
+                printf("Shift frequency set to: %lluHz\n", current_frequency_shift);
+                switch (genmode)
+                {
+                case 0:
+                    //TODO
+                    break;
+                case 1:
+                    refresh_CW_config();
+                    break;
+                case 2:
+                    refresh_RTTY_config();
+                    break;
+                
+                default:
+                    break;
+                }
+                save_current_to_preset(0xff);// save to last config
             }
             else
             {
@@ -211,6 +255,7 @@ void handle_console_command()
         {
             printf("Command invalid\n");
         }
+        save_current_to_preset(0xff);// save to last config
     }
     else if (compare_command("txen ", 5))
     {
@@ -281,6 +326,22 @@ void handle_console_command()
             if (mode >= 0 && mode <= GENMODE_MAX)
             {
                 genmode = mode;
+                switch (genmode)
+                {
+                case 0:
+                    //TODO
+                    break;
+                case 1:
+                    set_CW_mode();
+                    break;
+                case 2:
+                    set_RTTY_mode();
+                    break;
+                
+                default:
+                    break;
+                }
+                save_current_to_preset(0xff);// save to last config
                 printf("Mode set to %d\n", genmode);
             }
             else
@@ -327,6 +388,46 @@ void handle_console_command()
         else
         {
             printf("ERROR: incorect mode selected.\n");
+        }
+    }
+    else if (compare_command("savep ", 6))
+    {
+        if (is_number(6, 1))
+        {
+            uint64_t save_location = string_to_uint64(6, 1);
+            if (save_current_to_preset(save_location))
+            {
+                printf("Preset saved.\n");
+            }
+            else
+            {
+                printf("Preset save unsuccesfull, try different preset location.\n");
+            }
+            
+        }
+        else
+        {
+            printf("Command invalid\n");
+        }
+    }
+    else if (compare_command("loadp ", 6))
+    {
+        if (is_number(6, 1))
+        {
+            uint64_t load_location = string_to_uint64(6, 1);
+            if (load_preset(load_location))
+            {
+                printf("Preset loaded.\n");
+            }
+            else
+            {
+                printf("Preset load unsuccesfull, try different preset location.\n");
+            }
+            
+        }
+        else
+        {
+            printf("Command invalid\n");
         }
     }
     else

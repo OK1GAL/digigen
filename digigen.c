@@ -70,6 +70,8 @@ int main()
         printf("EEPROM not connected\n");
     }
 
+    load_preset(0xff);
+
     printf("Current config:\n");
     printf("Mode: %d\n", genmode);
     printf("0:Simple carier 1:CW 2:RTTY\n");
@@ -81,12 +83,12 @@ int main()
     printf("CW speed: %dWPM\n", current_CW_speed);
     printf("\n");
     printf("--");
-    refresh_RTTY_config();
 
     while (true)
     {
         handle_console_rx();
         handle_preset_switching();
+        handle_run_eeprom_btn();
         gpio_put(MODE1_LED_PIN, (genmode >> 1) & 0b1);
         gpio_put(MODE0_LED_PIN, (genmode) & 0b1);
     }

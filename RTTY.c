@@ -13,8 +13,6 @@ char ascii2baudot[130] = {0B1000000, 0B1000000, 0B1000000, 0B1000000, 0B0110100,
                           0B0001001, 0B0000001, 0B0001101, 0B0011010, 0B0010100, 0B0000110, 0B0001011, 0B0001111, 0B0010010, 0B0011100,
                           0B0001100, 0B0011000, 0B0010110, 0B0010111, 0B0001010, 0B0000101, 0B0010000, 0B0000111, 0B0011110, 0B0010011,
                           0B0011101, 0B0010101, 0B0010001, 0B1000000, 0B1000000, 0B1000000, 0B1000000, 0B1011111, 0B1011111, 0B1011011};
- 
-
 
 void RTTYTXletterRAW_blocking(uint8_t letter)
 {
@@ -59,13 +57,22 @@ void RTTYTXletter(uint8_t letter, uint8_t forcechange)
 
 void set_RTTY_mode()
 {
+    set_baudrate(current_baudrate);
     recalculate_fsk_params(current_center_freq, current_frequency_shift);
     set_FSK_symbol(1);
-    tx_enable(0);
+    tx_enable(1);
 }
 
 void refresh_RTTY_config()
 {
+    set_baudrate(current_baudrate);
     recalculate_fsk_params(current_center_freq, current_frequency_shift);
     set_FSK_symbol(1);
+}
+
+void set_baudrate(uint16_t baudrate)
+{
+    current_baudrate = baudrate;
+    current_bit_time = ((float)1000000 / (float)current_baudrate) - SYNTH_BIT_SET_TIME_us;
+    current_char_delay = (current_bit_time - SYNTH_BIT_SET_TIME_us) * 2;
 }

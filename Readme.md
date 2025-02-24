@@ -9,8 +9,8 @@ SDA: 4<br/>
 DCL: 5<br/>
 <br/>
 ## EEPROM memory map:<br/>
-Each preset is 64 bytes long (32 bytes used)<br/>
-|mode 1B|cfreq 8B|sfreq 8B|baudrate 2B|bit_time 2B|char_delay 2B|CW_speed 1B|CW bittime 8B|<br/>
+Each preset is 64 bytes long (20 bytes used)<br/>
+|mode 1B|cfreq 8B|sfreq 8B|baudrate 2B|CW_speed 1B|<br/>
 0x0000-0x003f last config<br/>
 0x0040-0x007f preset 0<br/>
 0x0080-0x00bf preset 1<br/>
