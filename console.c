@@ -3,7 +3,7 @@
 #define MIN_BAUDRATE 5   // vytazeno z prdele
 #define MAX_BAUDRATE 300 // theoreticaly 1kBaud
 
-#define MIN_CFREQ 10000     // vytazeno z prdele 
+#define MIN_CFREQ 10000     // vytazeno z prdele
 #define MAX_CFREQ 200000000 // vytazeno z prdele
 
 #define MIN_SFREQ 5     // vytazeno z prdele
@@ -24,11 +24,10 @@ void console_init()
     while (!stdio_usb_connected())
     {
         busy_wait_ms(1);
-        if (time_us_64()>STDIO_WAIT_TIME_us)
+        if (time_us_64() > STDIO_WAIT_TIME_us)
         {
             break;
         }
-        
     }
 
     printf("\n\n\n\nWelcome to digigen!\n");
@@ -110,6 +109,8 @@ void handle_console_command()
         printf("txmode x - sets TX mode 0:carier 1:CW 2:RTTY\n");
         printf("mancwtx = starts manual CW transmition, escape using ctrl+c\n");
         printf("savep x - saves current config to a preset x.");
+        printf("loadp x - loads config from preset x.");
+        printf("drives x - sets the SI5351 drive strenght 0=2mA 1=4mA 2=6mA 3=8mA.");
         printf("\033[0m\n");
     }
     else if (compare_command("config", 6))
@@ -139,7 +140,7 @@ void handle_console_command()
                 switch (genmode)
                 {
                 case 0:
-                    //TODO
+                    // TODO
                     break;
                 case 1:
                     refresh_CW_config();
@@ -147,11 +148,11 @@ void handle_console_command()
                 case 2:
                     refresh_RTTY_config();
                     break;
-                
+
                 default:
                     break;
                 }
-                save_current_to_preset(0xff);// save to last config
+                save_current_to_preset(0xff); // save to last config
             }
             else
             {
@@ -175,7 +176,7 @@ void handle_console_command()
                 switch (genmode)
                 {
                 case 0:
-                    //TODO
+                    // TODO
                     break;
                 case 1:
                     refresh_CW_config();
@@ -183,11 +184,11 @@ void handle_console_command()
                 case 2:
                     refresh_RTTY_config();
                     break;
-                
+
                 default:
                     break;
                 }
-                save_current_to_preset(0xff);// save to last config
+                save_current_to_preset(0xff); // save to last config
             }
             else
             {
@@ -211,7 +212,7 @@ void handle_console_command()
                 switch (genmode)
                 {
                 case 0:
-                    //TODO
+                    // TODO
                     break;
                 case 1:
                     refresh_CW_config();
@@ -219,11 +220,11 @@ void handle_console_command()
                 case 2:
                     refresh_RTTY_config();
                     break;
-                
+
                 default:
                     break;
                 }
-                save_current_to_preset(0xff);// save to last config
+                save_current_to_preset(0xff); // save to last config
             }
             else
             {
@@ -255,7 +256,7 @@ void handle_console_command()
         {
             printf("Command invalid\n");
         }
-        save_current_to_preset(0xff);// save to last config
+        save_current_to_preset(0xff); // save to last config
     }
     else if (compare_command("txen ", 5))
     {
@@ -284,7 +285,7 @@ void handle_console_command()
         {
             int8_t c = ' ';
             RTTYTXletter(c, 1);
-            gpio_put(RUNNING_LED_PIN,1);
+            gpio_put(RUNNING_LED_PIN, 1);
             while (c != 3)
             {
                 c = getchar_timeout_us(0);
@@ -310,7 +311,7 @@ void handle_console_command()
                     busy_wait_ms(1);
                 }
             }
-            gpio_put(RUNNING_LED_PIN,0);
+            gpio_put(RUNNING_LED_PIN, 0);
             printf("\n", c);
         }
         else
@@ -329,7 +330,7 @@ void handle_console_command()
                 switch (genmode)
                 {
                 case 0:
-                    //TODO
+                    // TODO
                     break;
                 case 1:
                     set_CW_mode();
@@ -337,11 +338,11 @@ void handle_console_command()
                 case 2:
                     set_RTTY_mode();
                     break;
-                
+
                 default:
                     break;
                 }
-                save_current_to_preset(0xff);// save to last config
+                save_current_to_preset(0xff); // save to last config
                 printf("Mode set to %d\n", genmode);
             }
             else
@@ -360,7 +361,7 @@ void handle_console_command()
         {
             int8_t c = ' ';
             CW_TX_letter(c);
-            gpio_put(RUNNING_LED_PIN,1);
+            gpio_put(RUNNING_LED_PIN, 1);
             while (c != 3)
             {
                 c = getchar_timeout_us(0);
@@ -382,7 +383,7 @@ void handle_console_command()
                     busy_wait_ms(1);
                 }
             }
-            gpio_put(RUNNING_LED_PIN,0);
+            gpio_put(RUNNING_LED_PIN, 0);
             printf("\n", c);
         }
         else
@@ -394,7 +395,7 @@ void handle_console_command()
     {
         if (is_number(6, 1))
         {
-            uint64_t save_location = string_to_uint64(6, 1);
+            uint8_t save_location = string_to_uint64(6, 1);
             if (save_current_to_preset(save_location))
             {
                 printf("Preset saved.\n");
@@ -403,7 +404,6 @@ void handle_console_command()
             {
                 printf("Preset save unsuccesfull, try different preset location.\n");
             }
-            
         }
         else
         {
@@ -414,7 +414,7 @@ void handle_console_command()
     {
         if (is_number(6, 1))
         {
-            uint64_t load_location = string_to_uint64(6, 1);
+            uint8_t load_location = string_to_uint64(6, 1);
             if (load_preset(load_location))
             {
                 printf("Preset loaded.\n");
@@ -423,7 +423,45 @@ void handle_console_command()
             {
                 printf("Preset load unsuccesfull, try different preset location.\n");
             }
-            
+        }
+        else
+        {
+            printf("Command invalid\n");
+        }
+    }
+    else if (compare_command("drives ", 7))
+    {
+        if (is_number(7, 1))
+        {
+            uint8_t drive_strenght = string_to_uint64(7, 1);
+            if (drive_strenght < 4)
+            {
+                set_tx_drive_strenght(drive_strenght);
+                printf("Drive strenght set to ");
+                switch (drive_strenght)
+                {
+                case 0:
+                    printf("2mA.\n");
+                    break;
+                case 1:
+                    printf("4mA.\n");
+                    break;
+                case 2:
+                    printf("6mA.\n");
+                    break;
+                case 3:
+                    printf("8mA.\n");
+                    break;
+
+                default:
+                printf(". Huh, this isn't right.\n");
+                    break;
+                }
+            }
+            else
+            {
+                printf("Invalid drive strenght.\n");
+            }
         }
         else
         {

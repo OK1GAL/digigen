@@ -10,6 +10,7 @@ uint8_t current_CW_speed = DEFAULT_CW_SPEED;
 uint64_t current_CW_bittime_us = DEFAULT_CW_BIT_TIME_us;
 
 uint8_t genmode = 0;
+uint8_t current_drive_strenght = 0;
 
 uint64_t setting_start_time = 0;
 uint64_t setting_stop_time = 0;

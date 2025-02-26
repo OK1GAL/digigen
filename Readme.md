@@ -14,6 +14,7 @@ DCL: 5<br/>
 | help | prints help | `help` |
 | config | prints current config | `config` |
 | txen x | sets the carier tx state | `txen 1` |
+| drives x | sets the SI5351 drive strenght 0=2mA 1=4mA 2=6mA 3=8mA | `drives 3` |
 | cfreq xxxxxxxxx | sets center frequency | `cfreq 007100000` |
 | sfreq xxxxxxxxx | sets frequency deviation | `sfreq 000000125` |
 | cwspeed xx | sets CW speed in WPM | `cwspeed 025` |
@@ -43,5 +44,5 @@ Each preset is 64 bytes long (20 bytes used)<br/>
 
 ## TODO<br/>
 - [x] Make it posible o load preset from console (curently posible only from buttons)
-- [ ] Add posibility to set drive strenght (2mA/4mA/6mA/8mA)
+- [x] Add posibility to set drive strenght (2mA/4mA/6mA/8mA)
 - [ ] Add calibration procedure

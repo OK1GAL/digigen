@@ -19,6 +19,9 @@
 
 #define GENMODE_MAX 2
 extern uint8_t genmode;
+extern uint8_t current_drive_strenght;
+
+#define default_CLK SI5351_CLK0
 
 //RTTY
 #define DEFAULT_CENTER_FREQUENCY 7100000
@@ -88,6 +91,7 @@ void handle_console_rx();
 void recalculate_fsk_params(uint64_t center_freq, uint64_t frequency_deviation);
 void set_FSK_symbol(uint8_t symbol);
 void tx_enable(uint8_t enable);
+uint8_t set_tx_drive_strenght(uint8_t strenght);
 
 //*************CW**************//
 void set_CW_mode();

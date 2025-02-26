@@ -2,7 +2,7 @@
 
 // For now only CLK0 is usable for FSK
 
-uint64_t pll_freq_mark = 69; 
+uint64_t pll_freq_mark = 69;
 uint64_t pll_freq_space;
 uint64_t pll_freq;
 
@@ -38,19 +38,19 @@ void set_FSK_symbol(uint8_t symbol)
 {
     if (symbol == 0)
     {
-        //set_pll(pll_freq_space, SI5351_PLLA);
+        // set_pll(pll_freq_space, SI5351_PLLA);
         set_ms(0, ms_reg_space, 0, r_div_space, 0);
-        gpio_put(SPACE_LED_PIN,1);
-        gpio_put(MARK_LED_PIN,0);
+        gpio_put(SPACE_LED_PIN, 1);
+        gpio_put(MARK_LED_PIN, 0);
     }
     else
     {
-        //set_pll(pll_freq_mark, SI5351_PLLA);
+        // set_pll(pll_freq_mark, SI5351_PLLA);
         set_ms(0, ms_reg_mark, 0, r_div_mark, 0);
-        gpio_put(SPACE_LED_PIN,0);
-        gpio_put(MARK_LED_PIN,1);
+        gpio_put(SPACE_LED_PIN, 0);
+        gpio_put(MARK_LED_PIN, 1);
     }
-    //pll_reset(SI5351_PLLA);
+    // pll_reset(SI5351_PLLA);
 }
 
 void tx_enable(uint8_t enable)
@@ -65,7 +65,6 @@ void tx_enable(uint8_t enable)
     }
 }
 
-
 uint8_t set_TX_mode(uint8_t mode)
 {
     if (mode <= GENMODE_MAX)
@@ -74,13 +73,13 @@ uint8_t set_TX_mode(uint8_t mode)
         switch (genmode)
         {
         case 0:
-            //constant carier
+            // constant carier
             break;
         case 1:
             set_CW_mode();
             break;
         case 2:
-            //RTTY
+            // RTTY
             break;
         default:
             return 0;
@@ -94,6 +93,16 @@ uint8_t set_TX_mode(uint8_t mode)
     }
 }
 
-
-
-
+uint8_t set_tx_drive_strenght(uint8_t strenght)
+{
+    if (strenght > 3)
+    {
+        return 0;
+    }
+    else
+    {
+        current_drive_strenght = strenght;
+        drive_strength(default_CLK, strenght);
+        return 1;
+    }
+}
