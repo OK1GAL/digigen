@@ -22,6 +22,7 @@ DCL: 5<br/>
 | txmode x | sets the tx mode, 0:carier 1:CW 2:RTTY | `txmode 1` |
 | mancwtx | starts direct CW transmition | `mancwtx` |
 | savep x | saves current config to location x in EEPROM | `savep 7` |
+| loadp x | loads config from preset x | `loadp 7` |
 > [!IMPORTANT]
 > To exit any direct transmition use ctrl+c.
 
@@ -41,6 +42,6 @@ Each preset is 64 bytes long (20 bytes used)<br/>
 0x0240-0x027f Calibration data<br/>
 
 ## TODO<br/>
-- [ ] Make it posible o load preset from console (curently posible only from buttons)
-- [ ] Add posibility to set drive strenght
+- [x] Make it posible o load preset from console (curently posible only from buttons)
+- [ ] Add posibility to set drive strenght (2mA/4mA/6mA/8mA)
 - [ ] Add calibration procedure
