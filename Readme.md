@@ -27,8 +27,11 @@ DCL: 5<br/>
 > [!IMPORTANT]
 > To exit any direct transmition use ctrl+c.
 
-<br/>
-## EEPROM memory map:<br/>
+
+<details>
+
+<summary>EEPROM memory map</summary>
+
 Each preset is 64 bytes long (20 bytes used)<br/>
 | mode 1B | cfreq 8B | sfreq 8B | baudrate 2B | CW_speed 1B |<br/>
 0x0000-0x003f last config<br/>
@@ -41,6 +44,9 @@ Each preset is 64 bytes long (20 bytes used)<br/>
 0x01c0-0x01ff preset 6<br/>
 0x0200-0x023f preset 7<br/>
 0x0240-0x027f Calibration data<br/>
+
+</details>
+
 
 ## TODO<br/>
 - [x] Make it posible o load preset from console (curently posible only from buttons)
