@@ -10,17 +10,17 @@ DCL: 5<br/>
 ## Commands:
 
 | Command | description | example syntax |
-| ---- | ---- | ---- |
+| ---- | :----: | ---- |
 | help | prints help | `help` |
 | config | prints current config | `config` |
-| baud xxx | sets baudrare | `baud 050` |
+| txen x | sets the carier tx state | `txen 1` |
 | cfreq xxxxxxxxx | sets center frequency | `cfreq 007100000` |
 | sfreq xxxxxxxxx | sets frequency deviation | `sfreq 000000125` |
 | cwspeed xx | sets CW speed in WPM | `cwspeed 025` |
-| txen x | sets the carier tx state | `txen 1` |
-| manrttytx | starts direct RTTY transmision | `manrttytx` |
+| baud xxx | sets baudrare | `baud 050` |
 | txmode x | sets the tx mode, 0:carier 1:CW 2:RTTY | `txmode 1` |
 | mancwtx | starts direct CW transmition | `mancwtx` |
+| manrttytx | starts direct RTTY transmision | `manrttytx` |
 | savep x | saves current config to location x in EEPROM | `savep 7` |
 | loadp x | loads config from preset x | `loadp 7` |
 > [!IMPORTANT]
