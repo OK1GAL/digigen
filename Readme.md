@@ -13,8 +13,15 @@ DCL: 5<br/>
 | ---- | ---- | ---- |
 | help | prints help | help |
 | config | prints current config | config |
-| baud xxx | sets paudrare | baud 050 |
-| cfreq xxxxxxxxx | sets center frequency | cfreq 007100000|
+| baud xxx | sets baudrare | baud 050 |
+| cfreq xxxxxxxxx | sets center frequency | cfreq 007100000 |
+| sfreq xxxxxxxxx | sets frequency deviation | sfreq 000000125 |
+| cwspeed xx | sets CW speed in WPM | cwspeed 025 |
+| txen x | sets the carier tx state | txen 1 |
+| manrttytx | starts direct rtty transmision | manrttytx |
+
+> [!IMPORTANT]
+> To exit any direct transmition use ctrl+c.
 
 <br/>
 ## EEPROM memory map:<br/>
