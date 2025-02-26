@@ -9,12 +9,12 @@ SDA: 4<br/>
 DCL: 5<br/>
 ## Commands:
 
-|Command|description|example syntax|
-|---|---|
-|help|prints help|help|
-|config|prints current config|config|
-|baud xxx|sets paudrare|baud 050|
-|cfreq xxxxxxxxx|sets center frequency|cfreq 007100000|
+| Command | description | example syntax |
+| --- | --- |
+| help | prints help | help |
+| config | prints current config | config |
+| baud xxx | sets paudrare | baud 050 |
+| cfreq xxxxxxxxx | sets center frequency | cfreq 007100000|
 
 
 <br/>
