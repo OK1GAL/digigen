@@ -39,3 +39,8 @@ Each preset is 64 bytes long (20 bytes used)<br/>
 0x01c0-0x01ff preset 6<br/>
 0x0200-0x023f preset 7<br/>
 0x0240-0x027f Calibration data<br/>
+
+## TODO<br/>
+- [ ] Make it posible o load preset from console (curently posible only from buttons)
+- [ ] Add posibility to set drive strenght
+- [ ] Add calibration procedure
