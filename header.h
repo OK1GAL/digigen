@@ -86,6 +86,7 @@ extern uint64_t current_CW_bittime_us;
 #define STDIO_WAIT_TIME_us 5000000
 void console_init();
 void handle_console_rx();
+void print_current_config();
 
 //*********GENERAL TX**********//
 void recalculate_fsk_params(uint64_t center_freq, uint64_t frequency_deviation);
@@ -109,6 +110,8 @@ void set_RTTY_mode();
 #define I2C_PORT i2c0
 #define EEPROM_ADDR 0x50
 
+uint8_t initialize_memory();
+uint8_t default_memory();
 
 
 //***********PRESETS***********//

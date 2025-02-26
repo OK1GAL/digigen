@@ -1,5 +1,5 @@
 #include "header.h"
- 
+
 uint64_t current_center_freq = DEFAULT_CENTER_FREQUENCY;
 uint64_t current_frequency_shift = DEFAULT_FREQUENCY_SHIFT;
 uint16_t current_baudrate = DEFAULT_BAUDRATE;
@@ -38,7 +38,6 @@ int main()
     gpio_init(MARK_LED_PIN);
     gpio_set_dir(MARK_LED_PIN, 1);
 
-
     gpio_init(PROG1_LED_PIN);
     gpio_set_dir(PROG1_LED_PIN, 1);
     gpio_init(PROG2_LED_PIN);
@@ -53,18 +52,17 @@ int main()
     gpio_init(RUN_FROM_EEPROM_BTN_PIN);
     gpio_set_dir(RUN_FROM_EEPROM_BTN_PIN, 0);
 
-
-    gpio_put(ERROR_LED_PIN,1);
+    gpio_put(ERROR_LED_PIN, 1);
     console_init();
-    gpio_put(ERROR_LED_PIN,0);
+    gpio_put(ERROR_LED_PIN, 0);
 
     Si5351_init(SI5351_CRYSTAL_LOAD_8PF, 0, 0);
     set_freq(current_center_freq, SI5351_CLK0);
     multicore_launch_core1(core1_entry);
 
-    if (i2c_read_blocking(I2C_PORT, EEPROM_ADDR, &dump,1, false))
+    if (i2c_read_blocking(I2C_PORT, EEPROM_ADDR, &dump, 1, false))
     {
-      printf("EEPROM connected\n");
+        printf("EEPROM connected\n");
     }
     else
     {
@@ -73,16 +71,7 @@ int main()
 
     load_preset(0xff);
 
-    printf("Current config:\n");
-    printf("Mode: %d\n", genmode);
-    printf("0:Simple carier 1:CW 2:RTTY\n");
-    printf("Center frequency: %lluHz\n", current_center_freq);
-    printf("RTTY:\n");
-    printf("Frequency shift: %lluHz\n", current_frequency_shift);
-    printf("Baudrate: %u baud\n", current_baudrate);
-    printf("CW:\n");
-    printf("CW speed: %dWPM\n", current_CW_speed);
-    printf("\n");
+    print_current_config();
     printf("--");
 
     while (true)
@@ -95,4 +84,20 @@ int main()
     }
 
     return 0;
+}
+
+void print_current_config()
+{
+    printf("\033[0;31m");
+    printf("Current config:\n");
+    printf("Mode: %d\n", genmode);
+    printf("Drive strenght: %d 0 = 2mA 1 = 4mA 2 = 6mA 3 = 8mA\n", current_drive_strenght);
+    printf("0:Simple carier 1:CW 2:RTTY\n");
+    printf("Center frequency: %lluHz\n", current_center_freq);
+    printf("RTTY:\n");
+    printf("Frequency shift: %lluHz\n", current_frequency_shift);
+    printf("Baudrate: %u baud\n", current_baudrate);
+    printf("CW:\n");
+    printf("CW speed: %dWPM\n", current_CW_speed);
+    printf("\033[0m\n");
 }

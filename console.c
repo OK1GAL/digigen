@@ -111,6 +111,7 @@ void handle_console_command()
         printf("savep x - saves current config to a preset x.");
         printf("loadp x - loads config from preset x.");
         printf("drives x - sets the SI5351 drive strenght 0=2mA 1=4mA 2=6mA 3=8mA.");
+        printf("default - memory formating");
         printf("\033[0m\n");
     }
     else if (compare_command("config", 6))
@@ -457,6 +458,7 @@ void handle_console_command()
                 printf(". Huh, this isn't right.\n");
                     break;
                 }
+                save_current_to_preset(0xff); // save to last config
             }
             else
             {
@@ -467,6 +469,37 @@ void handle_console_command()
         {
             printf("Command invalid\n");
         }
+    }
+    else if (compare_command("default ", 7))
+    {
+        printf("You are about to put your digigen to default config,\n");
+        printf("are you sure you want to do that? [Y/N]\n");
+        printf("If ou want to keep calibration data and only default\n");
+        printf("presets you can do so by pressing [P].\n");
+        c = getchar_timeout_us(0);
+        while (true)
+        {
+            c = getchar_timeout_us(0);
+            if (c == 'Y' || c == 'y')
+            {
+                default_memory();
+                printf("Default config loaded.\n");
+                break;
+            }
+            else if (c == 'P' || c == 'p')
+            {
+                initialize_memory();
+                printf("Default presets loaded.\n");
+                break;
+            }
+            else if (c == 'N' || c == 'n')
+            {
+                printf("Nothing was done.\n");
+                break;
+            }
+            
+        }
+        
     }
     else
     {

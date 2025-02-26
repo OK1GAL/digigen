@@ -24,6 +24,7 @@ DCL: 5<br/>
 | manrttytx | starts direct RTTY transmision | `manrttytx` |
 | savep x | saves current config to location x in EEPROM | `savep 7` |
 | loadp x | loads config from preset x | `loadp 7` |
+| default | memory formating | `default` |
 > [!IMPORTANT]
 > To exit any direct transmition use ctrl+c.
 
@@ -33,7 +34,7 @@ DCL: 5<br/>
 <summary>EEPROM memory map</summary>
 
 Each preset is 64 bytes long (20 bytes used)<br/>
-| mode 1B | cfreq 8B | sfreq 8B | baudrate 2B | CW_speed 1B |<br/>
+| mode 1B | cfreq 8B | sfreq 8B | baudrate 2B | CW_speed 1B | drive_strenght 1B |<br/>
 0x0000-0x003f last config<br/>
 0x0040-0x007f preset 0<br/>
 0x0080-0x00bf preset 1<br/>
@@ -50,5 +51,6 @@ Each preset is 64 bytes long (20 bytes used)<br/>
 
 ## TODO<br/>
 - [x] Make it posible o load preset from console (curently posible only from buttons)
-- [x] Add posibility to set drive strenght (2mA/4mA/6mA/8mA) (currently not part of preset)
+- [x] Add posibility to set drive strenght (2mA/4mA/6mA/8mA)
 - [ ] Add calibration procedure
+- [ ] Add detection of uninitiated memory and automatic initialization
