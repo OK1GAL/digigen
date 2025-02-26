@@ -7,6 +7,14 @@ Currently supports CW and RTTY<br/>
 Both EEPROM and SI5351 share the same bus.<br/>
 SDA: 4<br/>
 DCL: 5<br/>
+## Commands:
+|Command|description|example syntax|
+|help|prints help|help|
+|config|prints current config|config|
+|baud xxx|sets paudrare|baud 050|
+|cfreq xxxxxxxxx|sets center frequency|cfreq 007100000|
+ 
+
 <br/>
 ## EEPROM memory map:<br/>
 Each preset is 64 bytes long (20 bytes used)<br/>
