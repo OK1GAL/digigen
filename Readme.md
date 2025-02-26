@@ -30,7 +30,7 @@ DCL: 5<br/>
 <br/>
 ## EEPROM memory map:<br/>
 Each preset is 64 bytes long (20 bytes used)<br/>
-|mode 1B|cfreq 8B|sfreq 8B|baudrate 2B|CW_speed 1B|<br/>
+| mode 1B | cfreq 8B | sfreq 8B | baudrate 2B | CW_speed 1B |<br/>
 0x0000-0x003f last config<br/>
 0x0040-0x007f preset 0<br/>
 0x0080-0x00bf preset 1<br/>
@@ -44,5 +44,5 @@ Each preset is 64 bytes long (20 bytes used)<br/>
 
 ## TODO<br/>
 - [x] Make it posible o load preset from console (curently posible only from buttons)
-- [x] Add posibility to set drive strenght (2mA/4mA/6mA/8mA)
+- [x] Add posibility to set drive strenght (2mA/4mA/6mA/8mA) (currently not part of preset)
 - [ ] Add calibration procedure
