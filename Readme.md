@@ -11,15 +11,17 @@ DCL: 5<br/>
 
 | Command | description | example syntax |
 | ---- | ---- | ---- |
-| help | prints help | help |
-| config | prints current config | config |
-| baud xxx | sets baudrare | baud 050 |
-| cfreq xxxxxxxxx | sets center frequency | cfreq 007100000 |
-| sfreq xxxxxxxxx | sets frequency deviation | sfreq 000000125 |
-| cwspeed xx | sets CW speed in WPM | cwspeed 025 |
-| txen x | sets the carier tx state | txen 1 |
-| manrttytx | starts direct rtty transmision | manrttytx |
-
+| help | prints help | `help` |
+| config | prints current config | `config` |
+| baud xxx | sets baudrare | `baud 050` |
+| cfreq xxxxxxxxx | sets center frequency | `cfreq 007100000` |
+| sfreq xxxxxxxxx | sets frequency deviation | `sfreq 000000125` |
+| cwspeed xx | sets CW speed in WPM | `cwspeed 025` |
+| txen x | sets the carier tx state | `txen 1` |
+| manrttytx | starts direct RTTY transmision | `manrttytx` |
+| txmode x | sets the tx mode, 0:carier 1:CW 2:RTTY | `txmode 1` |
+| mancwtx | starts direct CW transmition | `mancwtx` |
+| savep x | saves current config to location x in EEPROM | `savep 7` |
 > [!IMPORTANT]
 > To exit any direct transmition use ctrl+c.
 
