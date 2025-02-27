@@ -42,6 +42,9 @@ DCL: 5<br/>
 0x01c0-0x01ff preset 6<br/>
 0x0200-0x023f preset 7<br/>
 0x0240-0x027f Calibration data<br/>
+<br/>
+Preset organisation:<br/>
+Each preset is 64 bytes long<br/>
 
 | value | offset | type | size |
 | ---- | ---- | ---- | ---- |
@@ -53,20 +56,6 @@ DCL: 5<br/>
 | drive strenght | 20 | uint8 | 1B |
 
 </details>
-
-## Preset organisation:<br/>
-Each preset is 64 bytes long<br/>
-### Memory offsets:<br/>
-
-| value | offset | type | size |
-| ---- | ---- | ---- | ---- |
-| mode | 0 | uint8 | 1B |
-| cfreq | 1 | uint64 | 8B |
-| sfreq | 9 | uint64 | 8B |
-| baudrate | 17 | uint16 | 2B |
-| cw speed | 19 | uint8 | 1B |
-| drive strenght | 20 | uint8 | 1B |
-
 
 ## TODO<br/>
 - [x] Make it posible o load preset from console (curently posible only from buttons)
