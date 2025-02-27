@@ -15,6 +15,9 @@ uint8_t current_drive_strenght = 0;
 uint64_t setting_start_time = 0;
 uint64_t setting_stop_time = 0;
 
+uint8_t current_custom_text[32] = "RYRYRYRYRYRYRYRYRYRYRYRYRYRYRYRY";
+uint8_t current_custom_text_length = 32;
+
 uint8_t dump;
 
 void core1_entry()
@@ -91,8 +94,15 @@ void print_current_config()
     printf("\033[0;31m");
     printf("Current config:\n");
     printf("Mode: %d\n", genmode);
-    printf("Drive strenght: %d 0 = 2mA 1 = 4mA 2 = 6mA 3 = 8mA\n", current_drive_strenght);
     printf("0:Simple carier 1:CW 2:RTTY\n");
+    printf("Drive strenght: %d 0 = 2mA 1 = 4mA 2 = 6mA 3 = 8mA\n", current_drive_strenght);
+    printf("Custom text: ");
+    for (int i = 0; i < current_custom_text_length; i++)
+    {
+        printf("%c",current_custom_text[i]);
+    }
+    printf("\n");
+    printf("Custom text length: %d\n", current_custom_text_length);
     printf("Center frequency: %lluHz\n", current_center_freq);
     printf("RTTY:\n");
     printf("Frequency shift: %lluHz\n", current_frequency_shift);

@@ -19,6 +19,8 @@ DCL: 5<br/>
 | sfreq xxxxxxxxx | sets frequency deviation | `sfreq 000000125` |
 | cwspeed xx | sets CW speed in WPM | `cwspeed 025` |
 | baud xxx | sets baudrare | `baud 050` |
+| settext | sets custom tx message | `settext` |
+| txtext | transmits custom tx message with current mode | `txtext` |
 | txmode x | sets the tx mode, 0:carier 1:CW 2:RTTY | `txmode 1` |
 | mancwtx | starts direct CW transmition | `mancwtx` |
 | manrttytx | starts direct RTTY transmision | `manrttytx` |

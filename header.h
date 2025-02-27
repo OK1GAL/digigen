@@ -38,6 +38,9 @@ extern uint16_t current_baudrate;
 extern uint16_t current_bit_time;
 extern uint16_t current_char_delay;
 
+extern uint8_t current_custom_text[32];
+extern uint8_t current_custom_text_length;
+
 /*
 Memory size per configuration:
 

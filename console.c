@@ -116,17 +116,7 @@ void handle_console_command()
     }
     else if (compare_command("config", 6))
     {
-        printf("\033[0;31m");
-        printf("Current config:\n");
-        printf("Mode: %d\n", genmode);
-        printf("0:Simple carier 1:CW 2:RTTY\n");
-        printf("Center frequency: %lluHz\n", current_center_freq);
-        printf("RTTY:\n");
-        printf("Frequency shift: %lluHz\n", current_frequency_shift);
-        printf("Baudrate: %u baud\n", current_baudrate);
-        printf("CW:\n");
-        printf("CW speed: %dWPM\n", current_CW_speed);
-        printf("\033[0m\n");
+        print_current_config();
     }
     else if (compare_command("baud ", 5))
     {
@@ -455,7 +445,7 @@ void handle_console_command()
                     break;
 
                 default:
-                printf(". Huh, this isn't right.\n");
+                    printf(". Huh, this isn't right.\n");
                     break;
                 }
                 save_current_to_preset(0xff); // save to last config
@@ -482,12 +472,14 @@ void handle_console_command()
             c = getchar_timeout_us(0);
             if (c == 'Y' || c == 'y')
             {
+                printf("Reconfiguring memory, please wait.\n");
                 default_memory();
                 printf("Default config loaded.\n");
                 break;
             }
             else if (c == 'P' || c == 'p')
             {
+                printf("Reconfiguring memory, please wait.\n");
                 initialize_memory();
                 printf("Default presets loaded.\n");
                 break;
@@ -497,8 +489,73 @@ void handle_console_command()
                 printf("Nothing was done.\n");
                 break;
             }
-            
         }
+    }
+    else if (compare_command("settext ", 7))
+    {
+        c = getchar_timeout_us(0);
+        uint8_t message[32]={0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+        uint8_t message_length = 0;
+        while (true)
+        {
+            c = getchar_timeout_us(0);
+            if (c != PICO_ERROR_TIMEOUT)
+            {
+                if (c == 8 && message_length > 0) // check for backspace and if backspace is posible
+                {
+                    // handle backspace
+                    message_length--;
+                    printf("%c %c", 8, 8);
+                }
+                else if (c == 3)
+                {
+                    printf("Message wasn't saved.");
+                    message_length = 0;
+                    c = 0;
+                    printf("--");
+                    while (getchar_timeout_us(0) != PICO_ERROR_TIMEOUT)
+                    {
+                        /* code */
+                    }
+                    break;
+                }
+                else if (c == 10 || c == 13) // check for linefeed
+                {
+                    
+                    for (int i = 0; i < message_length; i++)
+                    {
+                        current_custom_text[i] = message[i];
+                    }
+                    current_custom_text_length = message_length;
+
+                    message_length = 0;
+                    c = 0;
+                    save_current_to_preset(0xff); // save to last config
+                    printf("\nMessage saved succesfully.\n");
+                    while (getchar_timeout_us(0) != PICO_ERROR_TIMEOUT)
+                    {
+                        /* code */
+                    }
+                    break;
+                }
+                else if (message_length < 32 && c > 31 && c < 127) // check if buffer isn't full and handle input characters
+                {
+                    printf("%c", c);
+                    message[message_length] = c;
+                    message_length++;
+                }
+                else
+                {
+                    // buffer is probably full or character is invalid, so do nothing
+                    busy_wait_ms(1);
+                }
+                c = 0;
+            }
+        }
+    }
+    else if (compare_command("txtext ", 7))
+    {
+        printf("Not yet implemented. :(\n");
         
     }
     else

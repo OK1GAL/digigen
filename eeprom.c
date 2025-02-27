@@ -93,6 +93,8 @@ uint64_t read_eeprom_single_uint64(uint16_t start_address)
 #define BAUDRATE_MEM_OFFSET 17
 #define CW_SPEED_MEM_OFFSET 19 
 #define DRIVE_STRENGHT_MEM_OFFSET 20 //+1 = 21
+#define TEXT_LENGTH_MEM_OFFSET 31
+#define TEXT_MEM_OFFSET 32
 
 uint8_t save_current_to_preset(uint8_t preset)
 {
@@ -105,6 +107,11 @@ uint8_t save_current_to_preset(uint8_t preset)
         write_eeprom_single_uint16(start_address + BAUDRATE_MEM_OFFSET, current_baudrate);
         write_eeprom_single_uint8(start_address + CW_SPEED_MEM_OFFSET, current_CW_speed);
         write_eeprom_single_uint8(start_address + DRIVE_STRENGHT_MEM_OFFSET, current_drive_strenght);
+        write_eeprom_single_uint8(start_address + TEXT_LENGTH_MEM_OFFSET, current_custom_text_length);
+        for (int i = 0; i < current_custom_text_length; i++)
+        {
+            write_eeprom_single_uint8(start_address + TEXT_MEM_OFFSET + i, current_custom_text[i]);
+        }
         return 1;
     }
     else if (preset == 0xff)
@@ -116,6 +123,11 @@ uint8_t save_current_to_preset(uint8_t preset)
         write_eeprom_single_uint16(start_address + BAUDRATE_MEM_OFFSET, current_baudrate);
         write_eeprom_single_uint8(start_address + CW_SPEED_MEM_OFFSET, current_CW_speed);
         write_eeprom_single_uint8(start_address + DRIVE_STRENGHT_MEM_OFFSET, current_drive_strenght);
+        write_eeprom_single_uint8(start_address + TEXT_LENGTH_MEM_OFFSET, current_custom_text_length);
+        for (int i = 0; i < current_custom_text_length; i++)
+        {
+            write_eeprom_single_uint8(start_address + TEXT_MEM_OFFSET + i, current_custom_text[i]);
+        }
         return 1;
     }
     else
@@ -196,6 +208,12 @@ uint8_t load_preset(uint8_t preset)
         current_baudrate = read_eeprom_single_uint16(start_address + BAUDRATE_MEM_OFFSET);
         current_CW_speed = read_eeprom_single_uint8(start_address + CW_SPEED_MEM_OFFSET);
         current_drive_strenght = read_eeprom_single_uint8(start_address + DRIVE_STRENGHT_MEM_OFFSET);
+        current_custom_text_length = read_eeprom_single_uint8(start_address + TEXT_LENGTH_MEM_OFFSET);
+        for (int i = 0; i < current_custom_text_length; i++)
+        {
+            current_custom_text[i] = read_eeprom_single_uint8(start_address + TEXT_MEM_OFFSET + i);
+        }
+
         switch (genmode)
         {
         case 0:
@@ -222,6 +240,12 @@ uint8_t load_preset(uint8_t preset)
         current_baudrate = read_eeprom_single_uint16(start_address + BAUDRATE_MEM_OFFSET);
         current_CW_speed = read_eeprom_single_uint8(start_address + CW_SPEED_MEM_OFFSET);
         current_drive_strenght = read_eeprom_single_uint8(start_address + DRIVE_STRENGHT_MEM_OFFSET);
+        current_custom_text_length = read_eeprom_single_uint8(start_address + TEXT_LENGTH_MEM_OFFSET);
+        for (int i = 0; i < current_custom_text_length; i++)
+        {
+            current_custom_text[i] = read_eeprom_single_uint8(start_address + TEXT_MEM_OFFSET + i);
+        }
+
         switch (genmode)
         {
         case 0:
@@ -249,6 +273,8 @@ uint8_t load_preset(uint8_t preset)
     }
 }
 
+
+uint8_t default_text[32] = "RYRYRYRYRYRYRYRYRYRYRYRYRYRYRYRY";
 uint8_t initialize_memory()
 {
     for (int i = 0; i <= 8; i++)
@@ -260,6 +286,11 @@ uint8_t initialize_memory()
         write_eeprom_single_uint16(start_address + BAUDRATE_MEM_OFFSET, DEFAULT_BAUDRATE);
         write_eeprom_single_uint8(start_address + CW_SPEED_MEM_OFFSET, DEFAULT_CW_SPEED);
         write_eeprom_single_uint8(start_address + DRIVE_STRENGHT_MEM_OFFSET,0);
+        write_eeprom_single_uint8(start_address + TEXT_LENGTH_MEM_OFFSET, 32);
+        for (int i = 0; i < 32; i++)
+        {
+            write_eeprom_single_uint8(start_address + TEXT_MEM_OFFSET + i, default_text[i]);
+        }
     }
     
 }
@@ -275,6 +306,11 @@ uint8_t default_memory()
         write_eeprom_single_uint16(start_address + BAUDRATE_MEM_OFFSET, DEFAULT_BAUDRATE);
         write_eeprom_single_uint8(start_address + CW_SPEED_MEM_OFFSET, DEFAULT_CW_SPEED);
         write_eeprom_single_uint8(start_address + DRIVE_STRENGHT_MEM_OFFSET,0);
+        write_eeprom_single_uint8(start_address + TEXT_LENGTH_MEM_OFFSET, 32);
+        for (int i = 0; i < 32; i++)
+        {
+            write_eeprom_single_uint8(start_address + TEXT_MEM_OFFSET + i, default_text[i]);
+        }
     }
     
 }
