@@ -47,12 +47,15 @@ DCL: 5<br/>
 ## Preset organisation:<br/>
 Each preset is 64 bytes long<br/>
 ### Memory offsets:<br/>
-mode 0 (1B)<br/>
-cfreq 1 (8B)<br/>
-sfreq 9 (8B)<br/>
-baudrate 17 (2B)<br/>
-cw speed 19 (1B)<br/>
-drive strenght 20 (1B)<br/>
+
+| value | offset | type | size |
+| .... | .... | .... | .... |
+| mode | 0 | uint8 | 1B |
+| cfreq | 1 | uint64 | 8B |
+| sfreq | 9 | uint64 | 8B |
+| baudrate | 17 | uint16 | 2B |
+| cw speed | 19 | uint8 | 1B |
+| drive strenght | 20 | uint8 | 1B |
 
 
 ## TODO<br/>
