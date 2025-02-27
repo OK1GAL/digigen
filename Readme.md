@@ -37,7 +37,8 @@ Each preset is 64 bytes long (20 bytes used)<br/>
 
 | 0 | 1 | 9 | 17 | 19 | 20 |
 | .... | .... | .... | .... | .... | .... |
-| mode 1B | cfreq 8B | sfreq 8B | baudrate 2B | CW_speed 1B | drive_strenght 1B |<br/>
+| mode 1B | cfreq 8B | sfreq 8B | baudrate 2B | CW_speed 1B | drive_strenght 1B |
+
 0x0000-0x003f last config<br/>
 0x0040-0x007f preset 0<br/>
 0x0080-0x00bf preset 1<br/>
