@@ -32,10 +32,6 @@ DCL: 5<br/>
 <details>
 
 <summary>EEPROM memory map</summary>
-
-Each preset is 64 bytes long (20 bytes used)<br/>
-| mode 1B | cfreq 8B | sfreq 8B | baudrate 2B | CW_speed 1B | drive_strenght 1B |
-
 0x0000-0x003f last config<br/>
 0x0040-0x007f preset 0<br/>
 0x0080-0x00bf preset 1<br/>
@@ -46,17 +42,17 @@ Each preset is 64 bytes long (20 bytes used)<br/>
 0x01c0-0x01ff preset 6<br/>
 0x0200-0x023f preset 7<br/>
 0x0240-0x027f Calibration data<br/>
+</details>
 
 ## Preset organisation:<br/>
 Each preset is 64 bytes long<br/>
-### Memory offsets:
-mode 0 (1B)
-cfreq 1 (8B)
-sfreq 9 (8B)
-baudrate 17 (2B)
-cw speed 19 (1B)
-drive strenght 20 (1B)
-</details>
+### Memory offsets:<br/>
+mode 0 (1B)<br/>
+cfreq 1 (8B)<br/>
+sfreq 9 (8B)<br/>
+baudrate 17 (2B)<br/>
+cw speed 19 (1B)<br/>
+drive strenght 20 (1B)<br/>
 
 
 ## TODO<br/>
