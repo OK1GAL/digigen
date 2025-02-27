@@ -34,6 +34,9 @@ DCL: 5<br/>
 <summary>EEPROM memory map</summary>
 
 Each preset is 64 bytes long (20 bytes used)<br/>
+
+| 0 | 1 | 9 | 17 | 19 | 20 |
+| .... | .... | .... | .... | .... | .... |
 | mode 1B | cfreq 8B | sfreq 8B | baudrate 2B | CW_speed 1B | drive_strenght 1B |<br/>
 0x0000-0x003f last config<br/>
 0x0040-0x007f preset 0<br/>
@@ -54,3 +57,5 @@ Each preset is 64 bytes long (20 bytes used)<br/>
 - [x] Add posibility to set drive strenght (2mA/4mA/6mA/8mA)
 - [ ] Add calibration procedure
 - [ ] Add detection of uninitiated memory and automatic initialization
+- [ ] Add command to enter custom message for preset
+- [ ] Add beacon mode
