@@ -39,7 +39,7 @@ RUN_FROM_EEPROM_BTN_PIN: 22<br/>
 | cfreq xxxxxxxxx | sets center frequency | `cfreq 007100000` |
 | sfreq xxxxxxxxx | sets frequency deviation | `sfreq 000000125` |
 | cwspeed xx | sets CW speed in WPM | `cwspeed 025` |
-| baud xxx | sets baudrare | `baud 050` |
+| baud xxx | sets baudrate | `baud 050` |
 | settext | sets custom tx message | `settext` |
 | txtext | transmits custom tx message with current mode | `txtext` |
 | txmode x | sets the tx mode, 0:carier 1:CW 2:RTTY | `txmode 1` |
@@ -57,7 +57,6 @@ RUN_FROM_EEPROM_BTN_PIN: 22<br/>
 
 
 <details>
-
 <summary>EEPROM memory map</summary>
 0x0000-0x003f last config<br/>
 0x0040-0x007f preset 0<br/>
@@ -83,7 +82,6 @@ Each preset is 64 bytes long<br/>
 | drive strenght | 20 | uint8 | 1B |
 | custom text length | 31 | uint8 | 1B |
 | custom text | 32 | char array | 32B |
-
 </details>
 
 ## TODO<br/>
