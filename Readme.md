@@ -3,10 +3,29 @@ Simple digital modes generator for RPI Pico<br/>
 Originaly made for testing RTTY on R-154-2(M) receiver<br/>
 Currently supports CW and RTTY<br/>
 <br/>
-## HW connections:<br/>
+
+<details>
+
+<summary>HW connections</summary>
 Both EEPROM and SI5351 share the same bus.<br/>
 SDA: 4<br/>
 DCL: 5<br/>
+ERROR LED: 2<br/>
+TTY_TX_PIN: 8<br/>
+TTY_RX_PIN: 9<br/>
+MODE0_LED_PIN: 10<br/>
+MODE1_LED_PIN: 11<br/>
+RUNNING_LED_PIN: 13<br/>
+SPACE_LED_PIN: 15<br/>
+MARK_LED_PIN: 14<br/>
+PROG1_LED_PIN: 16<br/>
+PROG2_LED_PIN: 17<br/>
+PROG3_LED_PIN: 18<br/>
+PROGRAM_BTN_PIN: 20<br/>
+TEST_BTN_PIN: 21<br/>
+RUN_FROM_EEPROM_BTN_PIN: 22<br/>
+</details>
+
 ## Commands:
 
 | Command | description | example syntax |
