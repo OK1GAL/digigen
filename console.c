@@ -460,7 +460,7 @@ void handle_console_command()
             printf("Command invalid\n");
         }
     }
-    else if (compare_command("default ", 7))
+    else if (compare_command("default", 7))
     {
         printf("You are about to put your digigen to default config,\n");
         printf("are you sure you want to do that? [Y/N]\n");
@@ -491,10 +491,10 @@ void handle_console_command()
             }
         }
     }
-    else if (compare_command("settext ", 7))
+    else if (compare_command("settext", 7))
     {
         c = getchar_timeout_us(0);
-        uint8_t message[32]={0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+        uint8_t message[32] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
         uint8_t message_length = 0;
         while (true)
         {
@@ -521,7 +521,7 @@ void handle_console_command()
                 }
                 else if (c == 10 || c == 13) // check for linefeed
                 {
-                    
+
                     for (int i = 0; i < message_length; i++)
                     {
                         current_custom_text[i] = message[i];
@@ -553,10 +553,62 @@ void handle_console_command()
             }
         }
     }
-    else if (compare_command("txtext ", 7))
+    else if (compare_command("txtext", 6))
     {
-        printf("Not yet implemented. :(\n");
-        
+        if (genmode == 0)
+        {
+            printf("Transmitting message while in carier mode is not posible.\n");
+            gpio_put(ERROR_LED_PIN, 1);
+            busy_wait_ms(100);
+            gpio_put(ERROR_LED_PIN, 0);
+        }
+        else
+        {
+            printf("Transmitting message \"");
+            for (int i = 0; i < current_custom_text_length; i++)
+            {
+                printf("%c", current_custom_text[i]);
+            }
+            printf("\" you can cancel by ctrl+c.\n");
+            
+            for (int i = 0; i < current_custom_text_length; i++)
+            {
+                printf("%c", current_custom_text[i]);
+                switch (genmode)
+                {
+                case 0:
+                    // TODO
+                    break;
+                case 1:
+                    CW_TX_letter(current_custom_text[i]);
+                    break;
+                case 2:
+                    if (i == 0)
+                    {
+                        RTTYTXletter(current_custom_text[i], 1);
+                    }
+                    else
+                    {
+                        RTTYTXletter(current_custom_text[i], 0);
+                    }
+                    break;
+                default:
+                    break;
+                }
+
+                c = getchar_timeout_us(0);
+                if (c == 3)
+                {
+                    printf("\nTransmition canceled.");
+                    while (getchar_timeout_us(0) != PICO_ERROR_TIMEOUT)
+                    {
+                        /* code */
+                    }
+                    break;
+                }
+            }
+            printf("\n");
+        }
     }
     else
     {

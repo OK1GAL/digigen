@@ -91,7 +91,7 @@ uint64_t read_eeprom_single_uint64(uint16_t start_address)
 #define CFREQ_MEM_OFFSET 1
 #define SFREQ_MEM_OFFSET 9
 #define BAUDRATE_MEM_OFFSET 17
-#define CW_SPEED_MEM_OFFSET 19 
+#define CW_SPEED_MEM_OFFSET 19
 #define DRIVE_STRENGHT_MEM_OFFSET 20 //+1 = 21
 #define TEXT_LENGTH_MEM_OFFSET 31
 #define TEXT_MEM_OFFSET 32
@@ -149,7 +149,7 @@ void handle_preset_switching()
     gpio_put(PROG3_LED_PIN, (current_btn_preset >> 2) & 1);
     if (!gpio_get(PROGRAM_BTN_PIN) && last_prog_btn_state == 1)
     {
-        busy_wait_ms(50);
+        busy_wait_ms(100);
         current_btn_preset++;
         if (current_btn_preset > 7)
         {
@@ -170,6 +170,7 @@ void handle_preset_switching()
 uint8_t last_run_eeprom_btn_state = 1;
 void handle_run_eeprom_btn()
 {
+    int8_t c = 0;
     if (!gpio_get(RUN_FROM_EEPROM_BTN_PIN) && last_run_eeprom_btn_state == 1)
     {
         gpio_put(PROG1_LED_PIN, 1);
@@ -187,6 +188,61 @@ void handle_run_eeprom_btn()
         load_preset(current_btn_preset);
 
         last_run_eeprom_btn_state = 0;
+
+        if (genmode == 0)
+        {
+            printf("Transmitting message while in carier mode is not posible.\n");
+            gpio_put(ERROR_LED_PIN, 1);
+            busy_wait_ms(100);
+            gpio_put(ERROR_LED_PIN, 0);
+        }
+        else
+        {
+            printf("Transmitting message \"");
+            for (int i = 0; i < current_custom_text_length; i++)
+            {
+                printf("%c", current_custom_text[i]);
+            }
+            printf("\" you can cancel by ctrl+c.\n");
+
+            for (int i = 0; i < current_custom_text_length; i++)
+            {
+                printf("%c", current_custom_text[i]);
+                switch (genmode)
+                {
+                case 0:
+                    // TODO
+                    break;
+                case 1:
+                    CW_TX_letter(current_custom_text[i]);
+                    break;
+                case 2:
+                    if (i == 0)
+                    {
+                        RTTYTXletter(current_custom_text[i], 1);
+                    }
+                    else
+                    {
+                        RTTYTXletter(current_custom_text[i], 0);
+                    }
+                    break;
+                default:
+                    break;
+                }
+
+                c = getchar_timeout_us(0);
+                if (c == 3)
+                {
+                    printf("\nTransmition canceled.");
+                    while (getchar_timeout_us(0) != PICO_ERROR_TIMEOUT)
+                    {
+                        /* code */
+                    }
+                    break;
+                }
+            }
+            printf("\n--");
+        }
     }
     else
     {
@@ -273,7 +329,6 @@ uint8_t load_preset(uint8_t preset)
     }
 }
 
-
 uint8_t default_text[32] = "RYRYRYRYRYRYRYRYRYRYRYRYRYRYRYRY";
 uint8_t initialize_memory()
 {
@@ -285,14 +340,13 @@ uint8_t initialize_memory()
         write_eeprom_single_uint64(start_address + SFREQ_MEM_OFFSET, DEFAULT_FREQUENCY_SHIFT);
         write_eeprom_single_uint16(start_address + BAUDRATE_MEM_OFFSET, DEFAULT_BAUDRATE);
         write_eeprom_single_uint8(start_address + CW_SPEED_MEM_OFFSET, DEFAULT_CW_SPEED);
-        write_eeprom_single_uint8(start_address + DRIVE_STRENGHT_MEM_OFFSET,0);
+        write_eeprom_single_uint8(start_address + DRIVE_STRENGHT_MEM_OFFSET, 0);
         write_eeprom_single_uint8(start_address + TEXT_LENGTH_MEM_OFFSET, 32);
         for (int i = 0; i < 32; i++)
         {
             write_eeprom_single_uint8(start_address + TEXT_MEM_OFFSET + i, default_text[i]);
         }
     }
-    
 }
 
 uint8_t default_memory()
@@ -305,12 +359,11 @@ uint8_t default_memory()
         write_eeprom_single_uint64(start_address + SFREQ_MEM_OFFSET, DEFAULT_FREQUENCY_SHIFT);
         write_eeprom_single_uint16(start_address + BAUDRATE_MEM_OFFSET, DEFAULT_BAUDRATE);
         write_eeprom_single_uint8(start_address + CW_SPEED_MEM_OFFSET, DEFAULT_CW_SPEED);
-        write_eeprom_single_uint8(start_address + DRIVE_STRENGHT_MEM_OFFSET,0);
+        write_eeprom_single_uint8(start_address + DRIVE_STRENGHT_MEM_OFFSET, 0);
         write_eeprom_single_uint8(start_address + TEXT_LENGTH_MEM_OFFSET, 32);
         for (int i = 0; i < 32; i++)
         {
             write_eeprom_single_uint8(start_address + TEXT_MEM_OFFSET + i, default_text[i]);
         }
     }
-    
 }

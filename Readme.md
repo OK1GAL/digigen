@@ -26,9 +26,13 @@ DCL: 5<br/>
 | manrttytx | starts direct RTTY transmision | `manrttytx` |
 | savep x | saves current config to location x in EEPROM | `savep 7` |
 | loadp x | loads config from preset x | `loadp 7` |
+| txtext | transmits saved message | `txtext` |
 | default | memory formating | `default` |
 > [!IMPORTANT]
 > To exit any direct transmition use ctrl+c.
+
+> [!TIP]
+> You can run preset from memory using "RUN EEPROM" button after choosing the preset using "CYCLE EEPROM".
 
 
 <details>
@@ -66,5 +70,5 @@ Each preset is 64 bytes long<br/>
 - [x] Add posibility to set drive strenght (2mA/4mA/6mA/8mA)
 - [ ] Add calibration procedure
 - [ ] Add detection of uninitiated memory and automatic initialization
-- [ ] Add command to enter custom message for preset
+- [x] Add command to enter custom message for preset
 - [ ] Add beacon mode

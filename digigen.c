@@ -95,7 +95,7 @@ void print_current_config()
     printf("Current config:\n");
     printf("Mode: %d\n", genmode);
     printf("0:Simple carier 1:CW 2:RTTY\n");
-    printf("Drive strenght: %d 0 = 2mA 1 = 4mA 2 = 6mA 3 = 8mA\n", current_drive_strenght);
+    printf("Drive strenght: %d   |0 = 2mA 1 = 4mA 2 = 6mA 3 = 8mA\n", current_drive_strenght);
     printf("Custom text: ");
     for (int i = 0; i < current_custom_text_length; i++)
     {

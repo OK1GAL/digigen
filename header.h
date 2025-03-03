@@ -85,7 +85,6 @@ extern uint64_t current_CW_bittime_us;
 #define RUN_FROM_EEPROM_BTN_PIN 22
 
 //************CONSOLE**********//
-
 #define STDIO_WAIT_TIME_us 5000000
 void console_init();
 void handle_console_rx();
