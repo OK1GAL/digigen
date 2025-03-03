@@ -4,6 +4,8 @@ Originaly made for testing RTTY on R-154-2(M) receiver<br/>
 Currently supports CW and RTTY<br/>
 <br/>
 
+![Image of the PCB.](/images/PCB_render.png)
+
 <details>
 
 <summary>HW connections</summary>
