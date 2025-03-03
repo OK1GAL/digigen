@@ -108,10 +108,10 @@ void handle_console_command()
         printf("manrttytx - starts manual rtty transmision to escape use ctrl+c\n");
         printf("txmode x - sets TX mode 0:carier 1:CW 2:RTTY\n");
         printf("mancwtx = starts manual CW transmition, escape using ctrl+c\n");
-        printf("savep x - saves current config to a preset x.");
-        printf("loadp x - loads config from preset x.");
-        printf("drives x - sets the SI5351 drive strenght 0=2mA 1=4mA 2=6mA 3=8mA.");
-        printf("default - memory formating");
+        printf("savep x - saves current config to a preset x.\n");
+        printf("loadp x - loads config from preset x.\n");
+        printf("drives x - sets the SI5351 drive strenght 0=2mA 1=4mA 2=6mA 3=8mA.\n");
+        printf("default - memory formating\n");
         printf("\033[0m\n");
     }
     else if (compare_command("config", 6))
