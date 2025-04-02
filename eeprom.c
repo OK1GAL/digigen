@@ -6,7 +6,7 @@ void write_eeprom_single_uint8(uint16_t address, uint8_t data)
     data_to_send[0] = address >> 8;
     data_to_send[1] = address & 0xFF;
     data_to_send[2] = data;
-    i2c_write_blocking(I2C_PORT, EEPROM_ADDR, &data_to_send, 3, 0);
+    i2c_write_blocking(I2C_PORT, EEPROM_ADDR, data_to_send, 3, 0);
     busy_wait_ms(5);
 }
 
@@ -22,7 +22,7 @@ void write_eeprom_single_uint32(uint16_t address, uint32_t data)
     write_eeprom_single_uint8(address + 2, ((data >> 16) & 0xff));
     write_eeprom_single_uint8(address + 3, ((data >> 24) & 0xff));
 }
-void write_eeprom_single_uint64(uint16_t address, uint32_t data)
+void write_eeprom_single_uint64(uint16_t address, uint64_t data)
 {
     write_eeprom_single_uint8(address, (data & 0xff));
     write_eeprom_single_uint8(address + 1, ((data >> 8) & 0xff));
@@ -32,7 +32,7 @@ void write_eeprom_single_uint64(uint16_t address, uint32_t data)
     write_eeprom_single_uint8(address + 5, ((data >> 40) & 0xff));
     write_eeprom_single_uint8(address + 6, ((data >> 48) & 0xff));
     write_eeprom_single_uint8(address + 7, ((data >> 56) & 0xff));
-}
+} 
 
 uint8_t read_eeprom_single_uint8(uint16_t address)
 {
@@ -40,7 +40,7 @@ uint8_t read_eeprom_single_uint8(uint16_t address)
     uint8_t rxed_data = 0;
     data_to_send[0] = address >> 8;
     data_to_send[1] = address & 0xFF;
-    i2c_write_blocking(I2C_PORT, EEPROM_ADDR, &data_to_send, 2, 1);
+    i2c_write_blocking(I2C_PORT, EEPROM_ADDR, data_to_send, 2, 1);
     i2c_read_blocking(I2C_PORT, EEPROM_ADDR, &rxed_data, 1, 0);
 
     return rxed_data;

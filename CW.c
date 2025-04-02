@@ -236,7 +236,6 @@ void CW_TX_letter(uint8_t charin)
         {
             busy_wait_us(current_CW_bittime_us >>1);
         }
-
         busy_wait_us(current_CW_bittime_us);
     }
     tx_enable(0);
