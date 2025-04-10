@@ -1,7 +1,7 @@
 # Digigen<br/>
 Simple digital modes generator for RPI Pico<br/>
 Originaly made for testing RTTY on R-154-2(M) receiver<br/>
-Currently supports CW and RTTY<br/>
+Currently supports CW, RTTY and hellschreiber<br/>
 | Mode | Mode ID | LEDs |
 | :----: | :----: | :----: |
 | Carier | 0 | 00 |
@@ -65,7 +65,7 @@ RUN_FROM_EEPROM_BTN_PIN: 22<br/>
 > You can run preset from memory using "RUN EEPROM" button after choosing the preset using "CYCLE EEPROM".
 
 > [!WARNING]
-> Hellschreiberwas not tested yet, so it might be a bit off.
+> Hellschreiber was not tested yet, so it might be a bit off.
 
 
 <details>
