@@ -10,14 +10,14 @@
 #include <inttypes.h>
 
 #include "pico/stdlib.h"
-#include "pico/multicore.h" 
+#include "pico/multicore.h"
 #include "hardware/i2c.h"
 #include "hardware/timer.h"
 #include "hardware/clocks.h"
 #include "pico/multicore.h"
 
 
-#define GENMODE_MAX 2
+#define GENMODE_MAX 3
 extern uint8_t genmode;
 extern uint8_t current_drive_strenght;
 
@@ -37,6 +37,8 @@ extern uint64_t current_frequency_shift;
 extern uint16_t current_baudrate;
 extern uint16_t current_bit_time;
 extern uint16_t current_char_delay;
+extern uint16_t current_HELL_bittime_us;
+extern uint8_t current_HELL_speed;
 
 extern uint8_t current_custom_text[32];
 extern uint8_t current_custom_text_length;
@@ -107,6 +109,12 @@ void RTTYTXletter(uint8_t letter, uint8_t forcechange);
 void refresh_RTTY_config();
 void set_baudrate(uint16_t baudrate);
 void set_RTTY_mode();
+
+//************HELL*************//
+void set_HELL_mode();
+void refresh_HELL_config();
+void set_HELL_speed(uint16_t speed);
+void HELL_TX_letter(uint8_t charin);
 
 //***********EEPROM************//
 #define I2C_PORT i2c0

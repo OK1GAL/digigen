@@ -94,7 +94,7 @@ void print_current_config()
     printf("\033[0;31m");
     printf("Current config:\n");
     printf("Mode: %d\n", genmode);
-    printf("0:Simple carier 1:CW 2:RTTY\n");
+    printf("0:Simple carier 1:CW 2:RTTY 3:HELL\n");
     printf("Drive strenght: %d   |0 = 2mA 1 = 4mA 2 = 6mA 3 = 8mA\n", current_drive_strenght);
     printf("Custom text: ");
     for (int i = 0; i < current_custom_text_length; i++)
@@ -106,8 +106,10 @@ void print_current_config()
     printf("Center frequency: %lluHz\n", current_center_freq);
     printf("RTTY:\n");
     printf("Frequency shift: %lluHz\n", current_frequency_shift);
-    printf("Baudrate: %u baud\n", current_baudrate);
+    printf("Baudrate: %u Bd\n", current_baudrate);
     printf("CW:\n");
-    printf("CW speed: %dWPM\n", current_CW_speed);
+    printf("CW speed: %d WPM\n", current_CW_speed);
+    printf("HELL:\n");
+    printf("Hell speed: %d Bd\n", current_HELL_speed);
     printf("\033[0m\n");
 }

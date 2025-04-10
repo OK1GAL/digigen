@@ -2,6 +2,13 @@
 Simple digital modes generator for RPI Pico<br/>
 Originaly made for testing RTTY on R-154-2(M) receiver<br/>
 Currently supports CW and RTTY<br/>
+| Mode | Mode ID | LEDs |
+| :----: | :----: | :----: |
+| Carier | 0 | 00 |
+| CW | 1 | 01 |
+| RTTY | 2 | 10 |
+| HELL | 3 | 11 |
+
 <br/>
 
 ![Image of the PCB.](/images/PCB_render.png)
@@ -42,18 +49,23 @@ RUN_FROM_EEPROM_BTN_PIN: 22<br/>
 | baud xxx | sets baudrate | `baud 050` |
 | settext | sets custom tx message | `settext` |
 | txtext | transmits custom tx message with current mode | `txtext` |
-| txmode x | sets the tx mode, 0:carier 1:CW 2:RTTY | `txmode 1` |
+| txmode x | sets the tx mode, 0:carier 1:CW 2:RTTY  3:HELL | `txmode 1` |
 | mancwtx | starts direct CW transmition | `mancwtx` |
 | manrttytx | starts direct RTTY transmision | `manrttytx` |
 | savep x | saves current config to location x in EEPROM | `savep 7` |
 | loadp x | loads config from preset x | `loadp 7` |
 | txtext | transmits saved message | `txtext` |
 | default | memory formating | `default` |
+| hellspeed xxx | sets the hell baudrate | `hellspeed 125` |
+| manhelltx | starts direct HELL transmision | `manhelltx` |
 > [!IMPORTANT]
 > To exit any direct transmition use ctrl+c.
 
 > [!TIP]
 > You can run preset from memory using "RUN EEPROM" button after choosing the preset using "CYCLE EEPROM".
+
+> [!WARNING]
+> Hellschreiberwas not tested yet, so it might be a bit off.
 
 
 <details>
@@ -91,3 +103,5 @@ Each preset is 64 bytes long<br/>
 - [ ] Add detection of uninitiated memory and automatic initialization
 - [x] Add command to enter custom message for preset
 - [ ] Add beacon mode
+- [x] Add Hellschreiber
+- [ ] Complete Hellschreiber LUT

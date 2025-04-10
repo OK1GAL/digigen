@@ -112,6 +112,8 @@ void handle_console_command()
         printf("loadp x - loads config from preset x.\n");
         printf("drives x - sets the SI5351 drive strenght 0=2mA 1=4mA 2=6mA 3=8mA.\n");
         printf("default - memory formating\n");
+        printf("hellspeed xxx - set speed of hell transmition (default 125)\n");
+        printf("manhelltx - starts manual hell transmition to escape use ctrl+c\n");
         printf("\033[0m\n");
     }
     else if (compare_command("config", 6))
@@ -328,6 +330,9 @@ void handle_console_command()
                     break;
                 case 2:
                     set_RTTY_mode();
+                    break;
+                case 3:
+                    set_HELL_mode();
                     break;
 
                 default:
@@ -570,7 +575,7 @@ void handle_console_command()
                 printf("%c", current_custom_text[i]);
             }
             printf("\" you can cancel by ctrl+c.\n");
-            
+
             for (int i = 0; i < current_custom_text_length; i++)
             {
                 printf("%c", current_custom_text[i]);
@@ -592,6 +597,9 @@ void handle_console_command()
                         RTTYTXletter(current_custom_text[i], 0);
                     }
                     break;
+                case 3:
+                    HELL_TX_letter(current_custom_text[i]);
+                    break;
                 default:
                     break;
                 }
@@ -608,6 +616,82 @@ void handle_console_command()
                 }
             }
             printf("\n");
+        }
+    }
+    else if (compare_command("hellspeed ", 10))
+    {
+        if (is_number(10, 3))
+        {
+            uint16_t speed_to_set = string_to_uint16(5, 3);
+            if (speed_to_set >= MIN_BAUDRATE && speed_to_set <= MAX_BAUDRATE)
+            {
+                set_HELL_speed(speed_to_set);
+                printf("Hell speed set to: %u baud\n", current_HELL_speed);
+                printf("Bit time: %u us\n", current_HELL_bittime_us);
+                switch (genmode)
+                {
+                case 0:
+                    // TODO
+                    break;
+                case 1:
+                    refresh_CW_config();
+                    break;
+                case 2:
+                    refresh_RTTY_config();
+                    break;
+                case 3:
+                    refresh_HELL_config();
+                    break;
+
+                default:
+                    break;
+                }
+                save_current_to_preset(0xff); // save to last config
+            }
+            else
+            {
+                printf("Baudrate invalid\n");
+            }
+        }
+        else
+        {
+            printf("Baudrate invalid\n");
+        }
+    }
+    else if (compare_command("manhelltx", 7))
+    {
+        if (genmode == 3)
+        {
+            int8_t c = ' ';
+            HELL_TX_letter(c);
+            gpio_put(RUNNING_LED_PIN, 1);
+            while (c != 3)
+            {
+                c = getchar_timeout_us(0);
+                if (c != PICO_ERROR_TIMEOUT)
+                {
+
+                    if (c == 10 || c == 13)
+                    {
+                        printf("\n");
+                    }
+                    else
+                    {
+                        printf("%c", c);
+                        HELL_TX_letter(c);
+                    }
+                }
+                else
+                {
+                    busy_wait_ms(1);
+                }
+            }
+            gpio_put(RUNNING_LED_PIN, 0);
+            printf("\n", c);
+        }
+        else
+        {
+            printf("ERROR: incorect mode selected.\n");
         }
     }
     else
