@@ -650,12 +650,12 @@ void handle_console_command()
             }
             else
             {
-                printf("Baudrate invalid\n");
+                printf("Hell speed invalid, the format is \"hellspeed xxx\". min: %d max: %d\n", MIN_BAUDRATE, MAX_BAUDRATE);
             }
         }
         else
         {
-            printf("Baudrate invalid\n");
+            printf("Hell speed invalid, the format is \"hellspeed xxx\". min: %d max: %d\n", MIN_BAUDRATE, MAX_BAUDRATE);
         }
     }
     else if (compare_command("manhelltx", 7))

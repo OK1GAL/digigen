@@ -105,3 +105,5 @@ Each preset is 64 bytes long<br/>
 - [ ] Add beacon mode
 - [x] Add Hellschreiber
 - [ ] Complete Hellschreiber LUT
+- [ ] Add suport for TTY/HELL interface. (3.5mm jack)
+- [ ] Optimize memory usage. (no need for 64bit uint for frequency etc.)

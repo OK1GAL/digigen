@@ -47,6 +47,7 @@ add_executable(digigen  digigen.c
                         console.c
                         eeprom.c
                         HELL.c
+                        calib.c
                         )
 
 pico_set_program_name(digigen "digigen")

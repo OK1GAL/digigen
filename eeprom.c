@@ -32,7 +32,16 @@ void write_eeprom_single_uint64(uint16_t address, uint64_t data)
     write_eeprom_single_uint8(address + 5, ((data >> 40) & 0xff));
     write_eeprom_single_uint8(address + 6, ((data >> 48) & 0xff));
     write_eeprom_single_uint8(address + 7, ((data >> 56) & 0xff));
-} 
+}
+
+//requires 4 bytes to store
+void write_eeprom_single_longint(uint16_t address, long int data)
+{
+    write_eeprom_single_uint8(address, ((data & 0x0000ff00UL) >> 24));
+    write_eeprom_single_uint8(address + 1, ((data & 0x0000ff00UL) >> 16));
+    write_eeprom_single_uint8(address + 2, ((data & 0x0000ff00UL) >> 8));
+    write_eeprom_single_uint8(address + 3, (data & 0x000000ffUL));
+}
 
 uint8_t read_eeprom_single_uint8(uint16_t address)
 {
