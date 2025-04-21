@@ -42,6 +42,7 @@ void set_FSK_symbol(uint8_t symbol)
         set_ms(0, ms_reg_space, 0, r_div_space, 0);
         gpio_put(SPACE_LED_PIN, 1);
         gpio_put(MARK_LED_PIN, 0);
+        gpio_put(TTY_TX_PIN,0);
     }
     else
     {
@@ -49,6 +50,7 @@ void set_FSK_symbol(uint8_t symbol)
         set_ms(0, ms_reg_mark, 0, r_div_mark, 0);
         gpio_put(SPACE_LED_PIN, 0);
         gpio_put(MARK_LED_PIN, 1);
+        gpio_put(TTY_TX_PIN,1);
     }
     // pll_reset(SI5351_PLLA);
 }

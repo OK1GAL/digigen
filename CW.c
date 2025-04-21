@@ -232,6 +232,7 @@ void CW_TX_letter(uint8_t charin)
         tx_enable((charin64 >> i) & 0b1);
         gpio_put(MARK_LED_PIN,(charin64 >> i) & 0b1);
         gpio_put(SPACE_LED_PIN,(charin64 >> i) & 0b1);
+        gpio_put(TTY_TX_PIN,(charin64 >> i) & 0b1);
         if ((charin64 >> i) & 0b1)
         {
             busy_wait_us(current_CW_bittime_us >>1);

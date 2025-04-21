@@ -55,6 +55,11 @@ int main()
     gpio_init(RUN_FROM_EEPROM_BTN_PIN);
     gpio_set_dir(RUN_FROM_EEPROM_BTN_PIN, 0);
 
+    gpio_init(TTY_TX_PIN);
+    gpio_set_dir(TTY_TX_PIN, 1);
+    gpio_init(TTY_RX_PIN);
+    gpio_set_dir(TTY_RX_PIN, 0);
+
     gpio_put(ERROR_LED_PIN, 1);
     console_init();
     gpio_put(ERROR_LED_PIN, 0);
@@ -99,7 +104,7 @@ void print_current_config()
     printf("Custom text: ");
     for (int i = 0; i < current_custom_text_length; i++)
     {
-        printf("%c",current_custom_text[i]);
+        printf("%c", current_custom_text[i]);
     }
     printf("\n");
     printf("Custom text length: %d\n", current_custom_text_length);

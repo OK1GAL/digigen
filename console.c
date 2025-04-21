@@ -591,10 +591,12 @@ void handle_console_command()
                     if (i == 0)
                     {
                         RTTYTXletter(current_custom_text[i], 1);
+                        busy_wait_us(current_bit_time*2);
                     }
                     else
                     {
                         RTTYTXletter(current_custom_text[i], 0);
+                        busy_wait_us(current_bit_time*2);
                     }
                     break;
                 case 3:
