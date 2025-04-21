@@ -1,7 +1,9 @@
 # Digigen<br/>
+
 Simple digital modes generator for RPI Pico<br/>
 Originaly made for testing RTTY on R-154-2(M) receiver<br/>
 Currently supports CW, RTTY and hellschreiber<br/>
+
 | Mode | Mode ID | LEDs |
 | :----: | :----: | :----: |
 | Carier | 0 | 00 |
@@ -58,6 +60,7 @@ RUN_FROM_EEPROM_BTN_PIN: 22<br/>
 | default | memory formating | `default` |
 | hellspeed xxx | sets the hell baudrate | `hellspeed 125` |
 | manhelltx | starts direct HELL transmision | `manhelltx` |
+
 > [!IMPORTANT]
 > To exit any direct transmition use ctrl+c.
 
@@ -94,9 +97,11 @@ Each preset is 64 bytes long<br/>
 | drive strenght | 20 | uint8 | 1B |
 | custom text length | 31 | uint8 | 1B |
 | custom text | 32 | char array | 32B |
+
 </details>
 
 ## TODO<br/>
+
 - [x] Make it posible o load preset from console (curently posible only from buttons)
 - [x] Add posibility to set drive strenght (2mA/4mA/6mA/8mA)
 - [ ] Add calibration procedure
@@ -105,5 +110,5 @@ Each preset is 64 bytes long<br/>
 - [ ] Add beacon mode
 - [x] Add Hellschreiber
 - [ ] Complete Hellschreiber LUT
-- [ ] Add suport for TTY/HELL interface. (3.5mm jack)
+- [x] Add suport for TTY/HELL interface. (3.5mm jack)
 - [ ] Optimize memory usage. (no need for 64bit uint for frequency etc.)
