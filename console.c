@@ -141,6 +141,9 @@ void handle_console_command()
                 case 2:
                     refresh_RTTY_config();
                     break;
+                case 3:
+                    refresh_HELL_config();
+                    break;
 
                 default:
                     break;
@@ -177,6 +180,9 @@ void handle_console_command()
                 case 2:
                     refresh_RTTY_config();
                     break;
+                case 3:
+                    refresh_HELL_config();
+                    break;
 
                 default:
                     break;
@@ -212,6 +218,9 @@ void handle_console_command()
                     break;
                 case 2:
                     refresh_RTTY_config();
+                    break;
+                case 3:
+                    refresh_HELL_config();
                     break;
 
                 default:
@@ -591,12 +600,12 @@ void handle_console_command()
                     if (i == 0)
                     {
                         RTTYTXletter(current_custom_text[i], 1);
-                        busy_wait_us(current_bit_time*2);
+                        busy_wait_us(current_bit_time * 2);
                     }
                     else
                     {
                         RTTYTXletter(current_custom_text[i], 0);
-                        busy_wait_us(current_bit_time*2);
+                        busy_wait_us(current_bit_time * 2);
                     }
                     break;
                 case 3:
@@ -624,8 +633,8 @@ void handle_console_command()
     {
         if (is_number(10, 3))
         {
-            uint16_t speed_to_set = string_to_uint16(5, 3);
-            if (speed_to_set >= MIN_BAUDRATE && speed_to_set <= MAX_BAUDRATE)
+            uint16_t speed_to_set = string_to_uint16(10, 3);
+            if (speed_to_set >= MIN_HELL_SPEED && speed_to_set <= MAX_HELL_SPEED)
             {
                 set_HELL_speed(speed_to_set);
                 printf("Hell speed set to: %u baud\n", current_HELL_speed);

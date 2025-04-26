@@ -32,6 +32,11 @@ extern uint8_t current_drive_strenght;
 #define DEFAULT_CHAR_DELAY_us 20000
 #define SYNTH_BIT_SET_TIME_us 840
 
+#define DEFAULT_HELL_SPEED 125
+#define DEFAULT_HELL_BIT_TIME 8000 //us
+#define MIN_HELL_SPEED 5
+#define MAX_HELL_SPEED 300
+
 extern uint64_t current_center_freq;
 extern uint64_t current_frequency_shift;
 extern uint16_t current_baudrate;

@@ -34,7 +34,7 @@ void write_eeprom_single_uint64(uint16_t address, uint64_t data)
     write_eeprom_single_uint8(address + 7, ((data >> 56) & 0xff));
 }
 
-//requires 4 bytes to store
+// requires 4 bytes to store
 void write_eeprom_single_longint(uint16_t address, long int data)
 {
     write_eeprom_single_uint8(address, ((data & 0x0000ff00UL) >> 24));
@@ -101,7 +101,8 @@ uint64_t read_eeprom_single_uint64(uint16_t start_address)
 #define SFREQ_MEM_OFFSET 9
 #define BAUDRATE_MEM_OFFSET 17
 #define CW_SPEED_MEM_OFFSET 19
-#define DRIVE_STRENGHT_MEM_OFFSET 20 //+1 = 21
+#define DRIVE_STRENGHT_MEM_OFFSET 20
+#define HELL_SPEED_MEM_OFFSET 21
 #define TEXT_LENGTH_MEM_OFFSET 31
 #define TEXT_MEM_OFFSET 32
 
@@ -116,6 +117,7 @@ uint8_t save_current_to_preset(uint8_t preset)
         write_eeprom_single_uint16(start_address + BAUDRATE_MEM_OFFSET, current_baudrate);
         write_eeprom_single_uint8(start_address + CW_SPEED_MEM_OFFSET, current_CW_speed);
         write_eeprom_single_uint8(start_address + DRIVE_STRENGHT_MEM_OFFSET, current_drive_strenght);
+        write_eeprom_single_uint8(start_address + HELL_SPEED_MEM_OFFSET, current_HELL_speed);
         write_eeprom_single_uint8(start_address + TEXT_LENGTH_MEM_OFFSET, current_custom_text_length);
         for (int i = 0; i < current_custom_text_length; i++)
         {
@@ -132,6 +134,7 @@ uint8_t save_current_to_preset(uint8_t preset)
         write_eeprom_single_uint16(start_address + BAUDRATE_MEM_OFFSET, current_baudrate);
         write_eeprom_single_uint8(start_address + CW_SPEED_MEM_OFFSET, current_CW_speed);
         write_eeprom_single_uint8(start_address + DRIVE_STRENGHT_MEM_OFFSET, current_drive_strenght);
+        write_eeprom_single_uint8(start_address + HELL_SPEED_MEM_OFFSET, current_HELL_speed);
         write_eeprom_single_uint8(start_address + TEXT_LENGTH_MEM_OFFSET, current_custom_text_length);
         for (int i = 0; i < current_custom_text_length; i++)
         {
@@ -273,6 +276,7 @@ uint8_t load_preset(uint8_t preset)
         current_baudrate = read_eeprom_single_uint16(start_address + BAUDRATE_MEM_OFFSET);
         current_CW_speed = read_eeprom_single_uint8(start_address + CW_SPEED_MEM_OFFSET);
         current_drive_strenght = read_eeprom_single_uint8(start_address + DRIVE_STRENGHT_MEM_OFFSET);
+        current_HELL_speed = read_eeprom_single_uint8(start_address + HELL_SPEED_MEM_OFFSET);
         current_custom_text_length = read_eeprom_single_uint8(start_address + TEXT_LENGTH_MEM_OFFSET);
         for (int i = 0; i < current_custom_text_length; i++)
         {
@@ -289,6 +293,9 @@ uint8_t load_preset(uint8_t preset)
             break;
         case 2:
             set_RTTY_mode();
+            break;
+        case 3:
+            set_HELL_mode();
             break;
 
         default:
@@ -305,6 +312,7 @@ uint8_t load_preset(uint8_t preset)
         current_baudrate = read_eeprom_single_uint16(start_address + BAUDRATE_MEM_OFFSET);
         current_CW_speed = read_eeprom_single_uint8(start_address + CW_SPEED_MEM_OFFSET);
         current_drive_strenght = read_eeprom_single_uint8(start_address + DRIVE_STRENGHT_MEM_OFFSET);
+        current_HELL_speed = read_eeprom_single_uint8(start_address + HELL_SPEED_MEM_OFFSET);
         current_custom_text_length = read_eeprom_single_uint8(start_address + TEXT_LENGTH_MEM_OFFSET);
         for (int i = 0; i < current_custom_text_length; i++)
         {
@@ -321,6 +329,9 @@ uint8_t load_preset(uint8_t preset)
             break;
         case 2:
             set_RTTY_mode();
+            break;
+        case 3:
+            set_HELL_mode();
             break;
 
         default:
@@ -350,6 +361,7 @@ uint8_t initialize_memory()
         write_eeprom_single_uint16(start_address + BAUDRATE_MEM_OFFSET, DEFAULT_BAUDRATE);
         write_eeprom_single_uint8(start_address + CW_SPEED_MEM_OFFSET, DEFAULT_CW_SPEED);
         write_eeprom_single_uint8(start_address + DRIVE_STRENGHT_MEM_OFFSET, 0);
+        write_eeprom_single_uint8(start_address + HELL_SPEED_MEM_OFFSET, DEFAULT_HELL_SPEED);
         write_eeprom_single_uint8(start_address + TEXT_LENGTH_MEM_OFFSET, 32);
         for (int i = 0; i < 32; i++)
         {
@@ -369,6 +381,7 @@ uint8_t default_memory()
         write_eeprom_single_uint16(start_address + BAUDRATE_MEM_OFFSET, DEFAULT_BAUDRATE);
         write_eeprom_single_uint8(start_address + CW_SPEED_MEM_OFFSET, DEFAULT_CW_SPEED);
         write_eeprom_single_uint8(start_address + DRIVE_STRENGHT_MEM_OFFSET, 0);
+        write_eeprom_single_uint8(start_address + HELL_SPEED_MEM_OFFSET, DEFAULT_HELL_SPEED);
         write_eeprom_single_uint8(start_address + TEXT_LENGTH_MEM_OFFSET, 32);
         for (int i = 0; i < 32; i++)
         {
