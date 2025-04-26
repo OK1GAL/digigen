@@ -68,7 +68,7 @@ RUN_FROM_EEPROM_BTN_PIN: 22<br/>
 > You can run preset from memory using "RUN EEPROM" button after choosing the preset using "CYCLE EEPROM".
 
 > [!WARNING]
-> Hellschreiber was not tested yet, so it might be a bit off.
+> Hellschreiber was not tuned yet, so it might be a bit off.
 
 
 <details>
@@ -95,6 +95,7 @@ Each preset is 64 bytes long<br/>
 | baudrate | 17 | uint16 | 2B |
 | cw speed | 19 | uint8 | 1B |
 | drive strenght | 20 | uint8 | 1B |
+| hell speed | 20 | uint8 | 1B |
 | custom text length | 31 | uint8 | 1B |
 | custom text | 32 | char array | 32B |
 
