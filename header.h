@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <stdint.h>
 #include <string.h>
-#include <stdio.h> 
+#include <stdio.h>
 #include <math.h>
 #include <inttypes.h>
 
@@ -16,24 +16,27 @@
 #include "hardware/clocks.h"
 #include "pico/multicore.h"
 
-
 #define GENMODE_MAX 3
+#define CARIER_MODE 0
+#define CW_MODE 1
+#define RTTY_MODE 2
+#define HELL_MODE 3
 extern uint8_t genmode;
 extern uint8_t current_drive_strenght;
 
 #define default_CLK SI5351_CLK0
 
-//RTTY
+// RTTY
 #define DEFAULT_CENTER_FREQUENCY 7100000
 #define DEFAULT_FREQUENCY_SHIFT 125 // distance from center freq
-#define DEFAULT_BAUDRATE 50        // delay between bits
-#define SYNTH_SETTING_FREQ_us 1000       // delay between chars
+#define DEFAULT_BAUDRATE 50			// delay between bits
+#define SYNTH_SETTING_FREQ_us 1000	// delay between chars
 #define DEFAULT_BIT_TIME_us 20000
 #define DEFAULT_CHAR_DELAY_us 20000
 #define SYNTH_BIT_SET_TIME_us 840
 
 #define DEFAULT_HELL_SPEED 125
-#define DEFAULT_HELL_BIT_TIME 8000 //us
+#define DEFAULT_HELL_BIT_TIME 8000 // us
 #define MIN_HELL_SPEED 5
 #define MAX_HELL_SPEED 300
 
@@ -47,6 +50,8 @@ extern uint8_t current_HELL_speed;
 
 extern uint8_t current_custom_text[32];
 extern uint8_t current_custom_text_length;
+
+extern uint8_t beaconen;
 
 /*
 Memory size per configuration:
@@ -66,9 +71,9 @@ sum: 32 bytes
 
 */
 
-//CW
+// CW
 #define DEFAULT_CW_SPEED 20
-#define DEFAULT_CW_BIT_TIME_us 60000 
+#define DEFAULT_CW_BIT_TIME_us 60000
 
 extern uint8_t current_CW_speed;
 extern uint64_t current_CW_bittime_us;
@@ -93,9 +98,22 @@ extern uint64_t current_CW_bittime_us;
 
 //************CONSOLE**********//
 #define STDIO_WAIT_TIME_us 5000000
+
+#define CONSOLE_RESET_COLOR 0
+#define CONSOLE_DGRAY_COLOR 1
+#define CONSOLE_DRED_COLOR 2
+#define CONSOLE_DGREEN_COLOR 3
+#define CONSOLE_YELLOW_COLOR 4
+#define CONSOLE_DBLUE_COLOR 5
+#define CONSOLE_DMAGENTA_COLOR 6
+#define CONSOLE_DCYAN_COLOR 7
+#define CONSOLE_WHITE_COLOR 8
+
+
 void console_init();
 void handle_console_rx();
 void print_current_config();
+void set_console_color(uint8_t color);
 
 //*********GENERAL TX**********//
 void recalculate_fsk_params(uint64_t center_freq, uint64_t frequency_deviation);
@@ -128,14 +146,12 @@ void HELL_TX_letter(uint8_t charin);
 uint8_t initialize_memory();
 uint8_t default_memory();
 
-
 //***********PRESETS***********//
 
 void handle_preset_switching();
 uint8_t load_preset(uint8_t preset);
 void handle_run_eeprom_btn();
 uint8_t save_current_to_preset(uint8_t preset);
-
 
 //***********SI5351************//
 #define SI5351_I2C_PORT i2c0
@@ -451,7 +467,6 @@ uint8_t si5351_write_bulk(uint8_t, uint8_t, uint8_t *);
 uint8_t si5351_write(uint8_t, uint8_t);
 uint8_t si5351_read(uint8_t);
 
-
 uint64_t pll_calc(enum si5351_pll, uint64_t, struct Si5351RegSet *, int32_t, uint8_t);
 uint64_t multisynth_calc(uint64_t, uint64_t, struct Si5351RegSet *);
 uint64_t multisynth67_calc(uint64_t, uint64_t, struct Si5351RegSet *);
@@ -460,8 +475,6 @@ void update_int_status(struct Si5351IntStatus *);
 void ms_div(enum si5351_clock, uint8_t, uint8_t);
 uint8_t select_r_div(uint64_t *);
 uint8_t select_r_div_ms67(uint64_t *);
-
-
 
 //*****************************//
 

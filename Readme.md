@@ -45,10 +45,10 @@ RUN_FROM_EEPROM_BTN_PIN: 22<br/>
 | config | prints current config | `config` |
 | txen x | sets the carier tx state | `txen 1` |
 | drives x | sets the SI5351 drive strenght 0=2mA 1=4mA 2=6mA 3=8mA | `drives 3` |
-| cfreq xxxxxxxxx | sets center frequency | `cfreq 007100000` |
-| sfreq xxxxxxxxx | sets frequency deviation | `sfreq 000000125` |
-| cwspeed xx | sets CW speed in WPM | `cwspeed 025` |
-| baud xxx | sets baudrate | `baud 050` |
+| cfreq x | sets center frequency | `cfreq 7100000` |
+| sfreq x | sets frequency deviation | `sfreq 125` |
+| cwspeed x | sets CW speed in WPM | `cwspeed 25` |
+| baud x | sets baudrate | `baud 50` |
 | settext | sets custom tx message | `settext` |
 | txtext | transmits custom tx message with current mode | `txtext` |
 | txmode x | sets the tx mode, 0:carier 1:CW 2:RTTY  3:HELL | `txmode 1` |
@@ -58,8 +58,9 @@ RUN_FROM_EEPROM_BTN_PIN: 22<br/>
 | loadp x | loads config from preset x | `loadp 7` |
 | txtext | transmits saved message | `txtext` |
 | default | memory formating | `default` |
-| hellspeed xxx | sets the hell baudrate | `hellspeed 125` |
+| hellspeed x | sets the hell baudrate | `hellspeed 125` |
 | manhelltx | starts direct HELL transmision | `manhelltx` |
+| txbeacon x | starts beaconing saved text in x seconds period | `txbeacon 3` |
 
 > [!IMPORTANT]
 > To exit any direct transmition use ctrl+c.
@@ -108,8 +109,12 @@ Each preset is 64 bytes long<br/>
 - [ ] Add calibration procedure
 - [ ] Add detection of uninitiated memory and automatic initialization
 - [x] Add command to enter custom message for preset
-- [ ] Add beacon mode
+- [x] Add beacon mode
+- [ ] Make beacon loadable by buttons
 - [x] Add Hellschreiber
 - [x] Complete Hellschreiber LUT
 - [x] Add suport for TTY/HELL interface. (3.5mm jack)
 - [ ] Optimize memory usage. (no need for 64bit uint for frequency etc.)
+- [x] Use atoi(), atol()... for number input
+- [ ] Use mode 0 for something more sensible, carier can be turned on in CW
+- [ ] Expand custom text (realocate EEPROM)

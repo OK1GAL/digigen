@@ -86,6 +86,7 @@ void set_HELL_speed(uint16_t speed)
     current_HELL_bittime_us = ((float)1000000 / (float)current_HELL_speed);
 }
 
+
 void HELL_TX_letter(uint8_t charin)
 {
     if (charin >= 97 && charin <= 122)

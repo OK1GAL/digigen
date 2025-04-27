@@ -18,6 +18,8 @@ uint64_t setting_stop_time = 0;
 uint8_t current_custom_text[32] = "RYRYRYRYRYRYRYRYRYRYRYRYRYRYRYRY";
 uint8_t current_custom_text_length = 32;
 
+uint8_t beaconen = 0;
+
 uint8_t dump;
 
 void core1_entry()
@@ -70,11 +72,15 @@ int main()
 
     if (i2c_read_blocking(I2C_PORT, EEPROM_ADDR, &dump, 1, false))
     {
+        set_console_color(CONSOLE_DGREEN_COLOR);
         printf("EEPROM connected\n");
+        set_console_color(CONSOLE_RESET_COLOR);
     }
     else
     {
+        set_console_color(CONSOLE_DRED_COLOR);
         printf("EEPROM not connected\n");
+        set_console_color(CONSOLE_RESET_COLOR);
     }
 
     load_preset(0xff);
@@ -96,25 +102,25 @@ int main()
 
 void print_current_config()
 {
-    printf("\033[0;31m");
+    set_console_color(CONSOLE_DMAGENTA_COLOR);
     printf("Current config:\n");
-    printf("Mode: %d\n", genmode);
+    printf("Mode: \033[1;37m%d\033[1;35m\n", genmode);
     printf("0:Simple carier 1:CW 2:RTTY 3:HELL\n");
-    printf("Drive strenght: %d   |0 = 2mA 1 = 4mA 2 = 6mA 3 = 8mA\n", current_drive_strenght);
-    printf("Custom text: ");
+    printf("Drive strenght: \033[1;37m%d\033[1;35m   |0 = 2mA 1 = 4mA 2 = 6mA 3 = 8mA\n", current_drive_strenght);
+    printf("Custom text: \033[1;37m");
     for (int i = 0; i < current_custom_text_length; i++)
     {
         printf("%c", current_custom_text[i]);
     }
-    printf("\n");
-    printf("Custom text length: %d\n", current_custom_text_length);
-    printf("Center frequency: %lluHz\n", current_center_freq);
+    printf("\033[1;35m\n");
+    printf("Custom text length: \033[1;37m%d\033[1;35m\n", current_custom_text_length);
+    printf("Center frequency: \033[1;37m%llu Hz\033[1;35m \n", current_center_freq);
     printf("RTTY:\n");
-    printf("Frequency shift: %lluHz\n", current_frequency_shift);
-    printf("Baudrate: %u Bd\n", current_baudrate);
+    printf("Frequency shift: \033[1;37m%llu Hz\033[1;35m \n", current_frequency_shift);
+    printf("Baudrate: \033[1;37m%u Bd\033[1;35m \n", current_baudrate);
     printf("CW:\n");
-    printf("CW speed: %d WPM\n", current_CW_speed);
+    printf("CW speed: \033[1;37m%d WPM\033[1;35m \n", current_CW_speed);
     printf("HELL:\n");
-    printf("Hell speed: %d Bd\n", current_HELL_speed);
-    printf("\033[0m\n");
+    printf("Hell speed: \033[1;37m%d Bd\033[1;35m \n", current_HELL_speed);
+    set_console_color(CONSOLE_RESET_COLOR);
 }
