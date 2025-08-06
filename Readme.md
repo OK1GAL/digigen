@@ -118,3 +118,4 @@ Each preset is 64 bytes long<br/>
 - [x] Use atoi(), atol()... for number input
 - [ ] Use mode 0 for something more sensible, carier can be turned on in CW
 - [ ] Expand custom text (realocate EEPROM)
+- [ ] Fix SI5351 frequency setting in RTTY
